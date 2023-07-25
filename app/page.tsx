@@ -5,7 +5,7 @@ import Profile from '@/components/Profile';
 
 export default function Home() {
 	return (
-		<main className="flex min-h-screen flex-col relative items-center justify-center gap-20 p-6 bg-black">
+		<main className="flex min-h-screen flex-col relative items-center justify-center gap-8 p-6 bg-black">
 			<SignedIn>
 				<Profile />
 			</SignedIn>

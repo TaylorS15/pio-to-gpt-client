@@ -38,7 +38,7 @@ export default function Chat() {
 	return (
 		<>
 			{conversation.length > 0 && (
-				<div className="chat text-white w-full flex flex-col gap-4 p-4 max-h-[48rem] overflow-y-scroll rounded-md border border-white shadow-lg shadow-white/20">
+				<div className="chat text-white w-full max-w-5xl scroll-smooth flex flex-col gap-4 p-4 max-h-[42rem] overflow-y-scroll rounded-md border border-white">
 					{conversation.map((questionAndResponse, index) =>
 						questionAndResponse.map((text, nestedIndex) => (
 							<ChatBubble

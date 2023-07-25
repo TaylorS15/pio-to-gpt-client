@@ -46,8 +46,8 @@ export default function ChatBox() {
 	}
 
 	return (
-		<div className="w-full flex flex-col gap-4">
-			<div className="w-full">
+		<div className="w-full flex flex-col gap-4 max-w-5xl mx-auto">
+			<div className="max-w-3xl w-full">
 				<div className="h-[.15rem] w-3/5 bg-gray-300 rounded-md transition"></div>
 			</div>
 			<Form {...form}>
