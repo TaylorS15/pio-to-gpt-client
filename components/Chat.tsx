@@ -1,8 +1,31 @@
 'use client';
 
-import { useAppStore } from '@/app/layout';
+import { create } from 'zustand';
 import ChatBubble from './ChatBubble';
 import { useEffect } from 'react';
+
+interface AppState {
+	conversation: [string, string][];
+	addQuestionResponse: (by: [string, string]) => void;
+}
+
+export const useAppStore = create<AppState>()((set) => ({
+	conversation: [
+		[
+			'test question',
+			'test long response test long response test long response test long response test long response test long response',
+		],
+		[
+			'test question',
+			'test long response test long response test long response test long response test long response test long response',
+		],
+		[
+			'test question',
+			'test long response test long response test long response test long response test long response test long response',
+		],
+	],
+	addQuestionResponse: (qr) => set((state) => ({ conversation: [...state.conversation, qr] })),
+}));
 
 export default function Chat() {
 	const { conversation } = useAppStore();
