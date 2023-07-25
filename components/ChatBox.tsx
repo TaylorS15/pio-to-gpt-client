@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from './ui/input';
+import axios from 'axios';
 
 const formSchema = z.object({
 	question: z
@@ -21,6 +22,8 @@ const formSchema = z.object({
 });
 
 export default function ChatBox() {
+	const { addQuestion, updateResponse } = useAppStore();
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -31,18 +34,21 @@ export default function ChatBox() {
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		const { addQuestionResponse } = useAppStore.getState();
+		addQuestion([[values.question, values.formation ?? '', values.dynamic ?? ''], '']);
 
-		addQuestionResponse([
-			values.question,
-			'test long response test long response test long response test long response test long response test long response',
-		]);
+		axios({
+			method: 'post',
+			url: `${process.env.NEXT_PUBLIC_API_URL}/api/question`,
+			data: form.getValues(),
+		})
+			.then((res) => {
+				updateResponse(res.data.message);
+			})
+			.catch((error) => {
+				updateResponse(error.response.data);
+			});
 
-		form.reset({
-			question: '',
-			formation: undefined,
-			dynamic: undefined,
-		});
+		form.reset();
 	}
 
 	return (
@@ -81,32 +87,6 @@ export default function ChatBox() {
 						<div className="w-max gap-4 flex">
 							<FormField
 								control={form.control}
-								name="formation"
-								render={({ field }) => (
-									<FormItem>
-										<FormControl>
-											<Select
-												onValueChange={field.onChange}
-												value={field.value ?? ''}>
-												<SelectTrigger className="w-[150px]">
-													<SelectValue placeholder="Formation" />
-												</SelectTrigger>
-												<SelectContent>
-													<SelectItem value="BUvBB">BU vs BB</SelectItem>
-													<SelectItem value="COvBB">CO vs BB</SelectItem>
-													<SelectItem value="MPvBB">MP vs BB</SelectItem>
-													<SelectItem value="UTGvBB">
-														UTG vs BB
-													</SelectItem>
-													<SelectItem value="SBvBB">SB vs BB</SelectItem>
-												</SelectContent>
-											</Select>
-										</FormControl>
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
 								name="dynamic"
 								render={({ field }) => (
 									<FormItem>
@@ -120,6 +100,35 @@ export default function ChatBox() {
 												<SelectContent>
 													<SelectItem value="SRP">SRP</SelectItem>
 													<SelectItem value="3BP">3BP</SelectItem>
+												</SelectContent>
+											</Select>
+										</FormControl>
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="formation"
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Select
+												disabled={
+													form.getValues('dynamic') === undefined ?? true
+												}
+												onValueChange={field.onChange}
+												value={field.value ?? ''}>
+												<SelectTrigger className="w-[150px]">
+													<SelectValue placeholder="Formation" />
+												</SelectTrigger>
+												<SelectContent>
+													<SelectItem value="BUvBB">BU vs BB</SelectItem>
+													<SelectItem value="COvBB">CO vs BB</SelectItem>
+													<SelectItem value="MPvBB">MP vs BB</SelectItem>
+													<SelectItem value="UTGvBB">
+														UTG vs BB
+													</SelectItem>
+													<SelectItem value="SBvBB">SB vs BB</SelectItem>
 												</SelectContent>
 											</Select>
 										</FormControl>

@@ -3,6 +3,8 @@ import Chat from '@/components/Chat';
 import { SignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import Profile from '@/components/Profile';
 import Navigation from '@/components/Navigation';
+import Balancer from 'react-wrap-balancer';
+import QuestionAnimation from '@/components/QuestionAnimation';
 
 export default function Home() {
 	return (
@@ -26,6 +28,17 @@ export default function Home() {
 				<ChatBox />
 			</SignedIn>
 			<SignedOut>
+				<div className="text-white text-center font-semibold px-6">
+					<h2 className="bg-gradient-to-br text-2xl from-white to-slate-300 bg-clip-text text-transparent">
+						<Balancer>
+							Supercharge your poker game by bringing solver solutions and GPT-4
+							together.
+						</Balancer>
+					</h2>
+					<div className="my-20 border-white border p-4 rounded-md min-h-[24rem]">
+						<QuestionAnimation />
+					</div>
+				</div>
 				<SignIn />
 			</SignedOut>
 		</main>

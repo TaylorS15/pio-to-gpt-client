@@ -6,7 +6,7 @@ export default function ChatBubble({
 	index,
 }: {
 	type: 'user' | 'bot';
-	text: string;
+	text: [string, string, string] | string;
 	index: number;
 }) {
 	const [isLoaded, setIsLoaded] = useState(false);
@@ -29,8 +29,22 @@ export default function ChatBubble({
 							: 'bg-pio-blue') + ' mr-auto'
 			} ${
 				isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
-			} h-auto min-w-sm max-w-md w-auto p-3 overflow-x-clip rounded-md transition-all duration-300`}>
-			{text}
+			} h-auto min-w-sm max-w-md min-h-[3rem] w-auto p-3 overflow-x-clip rounded-md transition-all duration-300`}>
+			{typeof text === 'string' ? (
+				<p className="text-MD">{text}</p>
+			) : (
+				<>
+					<p className="text-md">{text[0]}</p>
+					<p className="text-xs text-gray-400">
+						{typeof text[1] === 'string' && text[1] !== '' ? (
+							<span className="mr-2">{text[1]}</span>
+						) : null}
+						{typeof text[2] === 'string' && text[2] !== '' ? (
+							<span className="mr-2">{text[2]}</span>
+						) : null}
+					</p>
+				</>
+			)}
 		</div>
 	);
 }
