@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 export default function ChatBubble({
 	type,
 	text,
@@ -7,6 +9,14 @@ export default function ChatBubble({
 	text: string;
 	index: number;
 }) {
+	const [isLoaded, setIsLoaded] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoaded(true);
+		}, 100);
+	}, []);
+
 	return (
 		<div
 			className={`${
@@ -17,7 +27,9 @@ export default function ChatBubble({
 							: index % 3 === 1
 							? 'bg-pio-green'
 							: 'bg-pio-blue') + ' mr-auto'
-			} h-auto min-w-sm max-w-md w-auto p-4 rounded-md font-medium`}>
+			} ${
+				isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+			} h-auto min-w-sm max-w-md w-auto p-3 overflow-x-clip rounded-md transition-all duration-300`}>
 			{text}
 		</div>
 	);
