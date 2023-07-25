@@ -3,6 +3,7 @@
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAppStore } from '@/app/page';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -30,99 +31,118 @@ export default function ChatBox() {
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values);
+		const { addQuestionResponse } = useAppStore.getState();
+
+		addQuestionResponse([
+			values.question,
+			'test long response test long response test long response test long response test long response test long response',
+		]);
+
+		form.reset({
+			question: '',
+			formation: undefined,
+			dynamic: undefined,
+		});
 	}
 
 	return (
-		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-3xl text-white">
-				<div className="w-full flex max-w-3xl gap-4 h-46">
-					<FormField
-						control={form.control}
-						name="question"
-						render={({ field }) => (
-							<FormItem className="flex-grow">
-								<FormMessage />
-								<FormControl>
-									<Input
-										{...field}
-										placeholder="Enter your question"
-										autoComplete="off"
-										className="w-full bg-black h-12 text-md"
-									/>
-								</FormControl>
-							</FormItem>
-						)}
-					/>
-					<Button
-						type="submit"
-						className="w-24 h-12 mt-auto bg-white select-none rounded-md text-black hover:bg-gray-300 transition">
-						Send
-					</Button>
-				</div>
-				<div className="mt-4 select-none">
-					<div className="w-max gap-4 flex">
+		<div className="w-full flex flex-col gap-4">
+			<div className="w-full">
+				<div className="h-[.15rem] w-3/5 bg-gray-300 rounded-md transition"></div>
+			</div>
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className="w-full max-w-3xl text-white">
+					<div className="w-full flex max-w-3xl gap-4">
 						<FormField
 							control={form.control}
-							name="formation"
+							name="question"
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className="flex-grow">
+									<FormMessage />
 									<FormControl>
-										<Select
-											onValueChange={field.onChange}
-											value={field.value ?? ''}>
-											<SelectTrigger className="w-[150px]">
-												<SelectValue placeholder="Formation" />
-											</SelectTrigger>
-											<SelectContent>
-												<SelectItem value="BUvBB">BU vs BB</SelectItem>
-												<SelectItem value="COvBB">CO vs BB</SelectItem>
-												<SelectItem value="MPvBB">MP vs BB</SelectItem>
-												<SelectItem value="UTGvBB">UTG vs BB</SelectItem>
-												<SelectItem value="SBvBB">SB vs BB</SelectItem>
-											</SelectContent>
-										</Select>
-									</FormControl>
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="dynamic"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<Select
-											onValueChange={field.onChange}
-											value={field.value ?? ''}>
-											<SelectTrigger className="w-[125px]">
-												<SelectValue placeholder="Dynamic" />
-											</SelectTrigger>
-											<SelectContent>
-												<SelectItem value="SRP">SRP</SelectItem>
-												<SelectItem value="3BP">3BP</SelectItem>
-											</SelectContent>
-										</Select>
+										<Input
+											{...field}
+											autoComplete="off"
+											className="w-full bg-black h-12 text-md"
+										/>
 									</FormControl>
 								</FormItem>
 							)}
 						/>
 						<Button
-							className="bg-white text-black hover:bg-gray-300 transition"
-							type="button"
-							onClick={() => {
-								form.reset({
-									question: form.getValues('question'),
-									formation: undefined,
-									dynamic: undefined,
-								});
-							}}>
-							Reset
+							type="submit"
+							className="w-24 h-12 mt-auto bg-white select-none rounded-md text-black hover:bg-gray-300 transition">
+							Send
 						</Button>
 					</div>
-					<p className="mt-2 text-sm">Optional Parameters</p>
-				</div>
-			</form>
-		</Form>
+					<div className="mt-4 select-none">
+						<div className="w-max gap-4 flex">
+							<FormField
+								control={form.control}
+								name="formation"
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Select
+												onValueChange={field.onChange}
+												value={field.value ?? ''}>
+												<SelectTrigger className="w-[150px]">
+													<SelectValue placeholder="Formation" />
+												</SelectTrigger>
+												<SelectContent>
+													<SelectItem value="BUvBB">BU vs BB</SelectItem>
+													<SelectItem value="COvBB">CO vs BB</SelectItem>
+													<SelectItem value="MPvBB">MP vs BB</SelectItem>
+													<SelectItem value="UTGvBB">
+														UTG vs BB
+													</SelectItem>
+													<SelectItem value="SBvBB">SB vs BB</SelectItem>
+												</SelectContent>
+											</Select>
+										</FormControl>
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="dynamic"
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Select
+												onValueChange={field.onChange}
+												value={field.value ?? ''}>
+												<SelectTrigger className="w-[125px]">
+													<SelectValue placeholder="Dynamic" />
+												</SelectTrigger>
+												<SelectContent>
+													<SelectItem value="SRP">SRP</SelectItem>
+													<SelectItem value="3BP">3BP</SelectItem>
+												</SelectContent>
+											</Select>
+										</FormControl>
+									</FormItem>
+								)}
+							/>
+							<Button
+								className="bg-white text-black hover:bg-gray-300 transition"
+								type="reset"
+								onClick={() => {
+									form.reset({
+										question: form.getValues('question'),
+										formation: undefined,
+										dynamic: undefined,
+									});
+								}}>
+								Reset
+							</Button>
+						</div>
+						<p className="mt-2 text-sm">Optional Parameters</p>
+					</div>
+				</form>
+			</Form>
+		</div>
 	);
 }
