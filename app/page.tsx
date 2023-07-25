@@ -2,7 +2,6 @@ import ChatBox from '@/components/ChatBox';
 import Chat from '@/components/Chat';
 import { SignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import Profile from '@/components/Profile';
-import { create } from 'zustand';
 
 export default function Home() {
 	return (
