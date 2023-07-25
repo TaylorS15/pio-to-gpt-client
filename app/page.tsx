@@ -2,11 +2,13 @@ import ChatBox from '@/components/ChatBox';
 import Chat from '@/components/Chat';
 import { SignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import Profile from '@/components/Profile';
+import Navigation from '@/components/Navigation';
 
 export default function Home() {
 	return (
 		<main className="flex min-h-screen flex-col relative items-center justify-center gap-8 p-6 bg-black">
 			<SignedIn>
+				<Navigation />
 				<Profile />
 			</SignedIn>
 

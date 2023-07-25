@@ -5,11 +5,14 @@ import ChatBubble from './ChatBubble';
 import { useEffect } from 'react';
 
 interface AppState {
+	navState: 'OPEN' | 'CLOSED';
 	conversation: [string, string][];
 	addQuestionResponse: (by: [string, string]) => void;
+	setNavState: (navState: 'OPEN' | 'CLOSED') => void;
 }
 
 export const useAppStore = create<AppState>()((set) => ({
+	navState: 'CLOSED',
 	conversation: [
 		[
 			'test question',
@@ -25,6 +28,7 @@ export const useAppStore = create<AppState>()((set) => ({
 		],
 	],
 	addQuestionResponse: (qr) => set((state) => ({ conversation: [...state.conversation, qr] })),
+	setNavState: (navState) => set(() => ({ navState })),
 }));
 
 export default function Chat() {
@@ -38,7 +42,7 @@ export default function Chat() {
 	return (
 		<>
 			{conversation.length > 0 && (
-				<div className="chat text-white w-full max-w-5xl scroll-smooth flex flex-col gap-4 p-4 max-h-[42rem] overflow-y-scroll rounded-md border border-white">
+				<div className="chat text-white w-full h-[50vh] md:h-auto max-w-5xl scroll-smooth flex flex-col gap-4 p-4 max-h-[42rem] overflow-y-scroll rounded-md border border-white">
 					{conversation.map((questionAndResponse, index) =>
 						questionAndResponse.map((text, nestedIndex) => (
 							<ChatBubble
