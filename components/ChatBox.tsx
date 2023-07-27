@@ -3,7 +3,7 @@
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppStore } from '@/components/Chat';
+import { useStore } from '@/app/store';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,7 @@ const formSchema = z.object({
 });
 
 export default function ChatBox() {
-	const { addQuestion, updateResponse } = useAppStore();
+	const { addQuestion, updateResponse, updateConversation, currentConversation } = useStore();
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -34,7 +34,12 @@ export default function ChatBox() {
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		addQuestion([[values.question, values.formation ?? '', values.dynamic ?? ''], '']);
+		addQuestion({
+			question: values.question,
+			formation: values.formation || '',
+			dynamic: values.dynamic || '',
+			response: null,
+		});
 
 		axios({
 			method: 'post',
@@ -43,12 +48,14 @@ export default function ChatBox() {
 		})
 			.then((res) => {
 				updateResponse(res.data.message);
+				currentConversation && updateConversation(currentConversation);
 			})
-			.catch((error) => {
-				updateResponse(error.response.data);
+			.catch(() => {
+				updateResponse('There was an error. Please try again. (Client Side)');
+				currentConversation && updateConversation(currentConversation);
 			});
 
-		form.reset();
+		// form.reset();
 	}
 
 	return (
@@ -79,7 +86,7 @@ export default function ChatBox() {
 						/>
 						<Button
 							type="submit"
-							className="w-24 h-12 mt-auto bg-white select-none rounded-md text-black hover:bg-gray-300 transition">
+							className="w-24 h-12 mt-auto bg-white select-none rounded-md text-black hover:bg-gray-200 transition">
 							Send
 						</Button>
 					</div>
@@ -136,7 +143,7 @@ export default function ChatBox() {
 								)}
 							/>
 							<Button
-								className="bg-white text-black hover:bg-gray-300 transition"
+								className="bg-white text-black hover:bg-gray-200 transition"
 								type="reset"
 								onClick={() => {
 									form.reset({

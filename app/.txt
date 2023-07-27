@@ -1,0 +1,11 @@
+New Chat:
+ - if currentConversation is null, do nothing
+ - if currentConversation is not null:
+  - if current conversation is not in pastConversations, add it, then change currentConversation to null
+  - if current conversation is in pastConversations, update it, then change currentConversation to null
+
+Past Conversation:
+  - if currentConversation is null, set currentConversation to conversation
+  - if currentConversation is not null:
+    - if currentConversation is not in pastConversations, add it, update it, then change currentConversation to conversation
+    - if currentConversation is in pastConversations, update it, then change currentConversation to conversation
