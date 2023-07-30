@@ -1,50 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export default function ChatBubble({
-	type,
-	text,
-	index,
+  type,
+  text,
+  index,
 }: {
-	type: 'user' | 'bot';
-	text: string;
-	index: number;
+  type: "user" | "bot";
+  text: string;
+  index: number;
 }) {
-	const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-	useEffect(() => {
-		setTimeout(() => {
-			setIsLoaded(true);
-		}, 100);
-	}, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+  }, []);
 
-	return (
-		<div
-			className={`${
-				type === 'user'
-					? 'bg-black border border-white ml-auto'
-					: (index % 3 === 0
-							? 'bg-pio-red/60'
-							: index % 3 === 1
-							? 'bg-pio-green/60'
-							: 'bg-pio-blue/60') + ' mr-auto'
-			} ${
-				isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
-			} h-auto min-w-sm max-w-md w-auto p-3 overflow-x-clip rounded-md transition-all duration-300`}>
-			{typeof text === 'string' ? (
-				<p className="text-MD">{text}</p>
-			) : (
-				<>
-					<p className="text-md">{text[0]}</p>
-					<p className="text-xs text-gray-400">
-						{typeof text[1] === 'string' && text[1] !== '' ? (
-							<span className="mr-2">{text[1]}</span>
-						) : null}
-						{typeof text[2] === 'string' && text[2] !== '' ? (
-							<span className="mr-2">{text[2]}</span>
-						) : null}
-					</p>
-				</>
-			)}
-		</div>
-	);
+  return (
+    <div
+      className={`${
+        type === "user"
+          ? "ml-auto border border-white bg-black"
+          : (index % 3 === 0
+              ? "bg-pio-red/60"
+              : index % 3 === 1
+              ? "bg-pio-green/60"
+              : "bg-pio-blue/60") + " mr-auto"
+      } ${
+        isLoaded ? "scale-100 opacity-100" : "scale-50 opacity-0"
+      } min-w-sm h-auto w-auto max-w-md overflow-x-clip rounded-md p-3 transition-all duration-300`}
+    >
+      {typeof text === "string" ? (
+        <p className="text-MD">{text}</p>
+      ) : (
+        <>
+          <p className="text-md">{text[0]}</p>
+          <p className="text-xs text-gray-400">
+            {typeof text[1] === "string" && text[1] !== "" ? (
+              <span className="mr-2">{text[1]}</span>
+            ) : null}
+            {typeof text[2] === "string" && text[2] !== "" ? (
+              <span className="mr-2">{text[2]}</span>
+            ) : null}
+          </p>
+        </>
+      )}
+    </div>
+  );
 }

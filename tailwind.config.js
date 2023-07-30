@@ -62,6 +62,10 @@ module.exports = {
 			boxShadow: {
 				custom: '45px 0px 45px 0px',
 			},
+			width: {
+				112: '28rem',
+				128: '32rem',
+			},
 			keyframes: {
 				'accordion-down': {
 					from: { height: 0 },
