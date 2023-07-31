@@ -22,12 +22,12 @@ export default function Profile() {
           <DropdownMenuTrigger>
             <User color="white" size={25} />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="mr-4 border border-white bg-black text-white">
-            <DropdownMenuItem className="font-semibold">
+          <DropdownMenuContent className="mr-4 border border-white bg-black font-semibold text-white">
+            <DropdownMenuItem className="cursor-pointer">
               Account Info
             </DropdownMenuItem>
             <SignOutButton>
-              <DropdownMenuItem className="cursor-pointer font-semibold">
+              <DropdownMenuItem className="cursor-pointer">
                 Sign Out
               </DropdownMenuItem>
             </SignOutButton>
@@ -40,9 +40,9 @@ export default function Profile() {
           <DropdownMenuTrigger>
             <User color="white" size={25} />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="mr-4 border border-white bg-black text-white">
+          <DropdownMenuContent className="mr-4 border border-white bg-black font-semibold text-white">
             <SignInButton>
-              <DropdownMenuItem className="cursor-pointer font-semibold">
+              <DropdownMenuItem className="cursor-pointer">
                 Sign In
               </DropdownMenuItem>
             </SignInButton>

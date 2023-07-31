@@ -19,8 +19,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Input } from "./ui/input";
 import axios from "axios";
+import { Textarea } from "./ui/textarea";
+import { useWindowResize } from "@/app/hooks";
 
 const formSchema = z.object({
   question: z
@@ -40,6 +41,8 @@ export default function ChatBox() {
     updateConversation,
     currentConversation,
   } = useStore();
+
+  const { elementWidth, leftMargin } = useWindowResize();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -72,18 +75,21 @@ export default function ChatBox() {
         currentConversation && updateConversation(currentConversation);
       });
 
-    // form.reset();
+    form.reset();
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
-      <div className="w-full max-w-3xl">
+    <div
+      className="mx-auto mt-auto flex max-w-5xl flex-col gap-4 lg:mx-0"
+      style={{ width: elementWidth, marginLeft: leftMargin }}
+    >
+      <div className="mx-auto w-full max-w-3xl">
         <div className="h-[.15rem] w-3/5 rounded-md bg-gray-300 transition"></div>
       </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full max-w-3xl text-white"
+          className="mx-auto w-full max-w-3xl "
         >
           <div className="flex w-full max-w-3xl gap-4">
             <FormField
@@ -93,10 +99,10 @@ export default function ChatBox() {
                 <FormItem className="flex-grow">
                   <FormMessage />
                   <FormControl>
-                    <Input
+                    <Textarea
                       {...field}
                       autoComplete="off"
-                      className="text-md h-12 w-full bg-black"
+                      className="text-md w-full resize-none bg-black"
                     />
                   </FormControl>
                 </FormItem>
@@ -166,7 +172,7 @@ export default function ChatBox() {
                 type="reset"
                 onClick={() => {
                   form.reset({
-                    question: form.getValues("question"),
+                    question: undefined,
                     formation: undefined,
                     dynamic: undefined,
                   });

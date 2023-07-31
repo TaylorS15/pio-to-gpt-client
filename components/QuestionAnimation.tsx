@@ -13,24 +13,94 @@ export default function QuestionAnimation() {
     setTimeout(() => {
       setFirstQuestion(true);
     }, 100);
+
+    setTimeout(() => {
+      setFirstResponse(true);
+    }, 3100);
+
+    setTimeout(() => {
+      setSecondQuestion(true);
+    }, 6100);
+
+    setTimeout(() => {
+      setSecondResponse(true);
+    }, 9100);
   }, []);
 
   return (
-    <div
-      className={`${
-        firstQuestion ? "scale-100 opacity-100" : "scale-50 opacity-0"
-      } ml-auto w-72 rounded-md border border-white p-2 text-left text-white transition`}
-    >
-      <Typewriter
-        options={{
-          strings: ["What is the best way to play this hand?"],
-          autoStart: true,
-          delay: 50,
-          loop: true,
-          deleteSpeed: 99999999,
-          cursor: "",
-        }}
-      />
-    </div>
+    <>
+      {firstQuestion && (
+        <div
+          className={`${
+            firstQuestion ? "scale-100 opacity-100" : "scale-50 opacity-0"
+          } mb-4 ml-auto w-96 rounded-md border border-white p-2 text-left  transition`}
+        >
+          <Typewriter
+            options={{
+              strings: ["What is the best way to play this hand?"],
+              autoStart: true,
+              delay: 50,
+              deleteSpeed: 99999999,
+              loop: false,
+              cursor: "",
+            }}
+          />
+        </div>
+      )}
+      {firstResponse && (
+        <div
+          className={`${
+            firstQuestion ? "scale-100 opacity-100" : "scale-50 opacity-0"
+          } mb-4 mr-auto w-96 rounded-md bg-pio-red/70 p-2 text-left  transition`}
+        >
+          <Typewriter
+            options={{
+              strings: ["What is the best way to play this hand?"],
+              autoStart: true,
+              delay: 50,
+              deleteSpeed: 99999999,
+              loop: false,
+              cursor: "",
+            }}
+          />
+        </div>
+      )}
+      {secondQuestion && (
+        <div
+          className={`${
+            secondQuestion ? "scale-100 opacity-100" : "scale-50 opacity-0"
+          } mb-4 ml-auto w-96 rounded-md border border-white p-2 text-left  transition`}
+        >
+          <Typewriter
+            options={{
+              strings: ["What is the best way to play this hand?"],
+              autoStart: true,
+              delay: 50,
+              deleteSpeed: 99999999,
+              loop: false,
+              cursor: "",
+            }}
+          />
+        </div>
+      )}
+      {secondResponse && (
+        <div
+          className={`${
+            secondResponse ? "scale-100 opacity-100" : "scale-50 opacity-0"
+          } mb-4 mr-auto w-96 rounded-md bg-pio-green/70 p-2 text-left  transition`}
+        >
+          <Typewriter
+            options={{
+              strings: ["What is the best way to play this hand?"],
+              autoStart: true,
+              delay: 50,
+              deleteSpeed: 99999999,
+              loop: false,
+              cursor: "",
+            }}
+          />
+        </div>
+      )}
+    </>
   );
 }

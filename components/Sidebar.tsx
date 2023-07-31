@@ -27,9 +27,9 @@ export default function Navigation() {
   }, []);
 
   return (
-    <div className="absolute left-0 top-0">
+    <div className="absolute left-0 top-0 w-0">
       <button
-        className="absolute left-4 top-4 text-white transition-all"
+        className="absolute left-4 top-4  transition-all"
         onClick={() => setNavState("OPEN")}
       >
         <Menu size={30} />
@@ -40,18 +40,18 @@ export default function Navigation() {
           navState === "OPEN"
             ? "translate-x-0 shadow-custom shadow-black/80"
             : "-translate-x-full"
-        } relative z-20 flex h-screen w-72 flex-col border-r border-white bg-black transition`}
+        } relative z-20 flex h-screen w-72 flex-col border-r border-white bg-black transition lg:translate-x-0 lg:shadow-none`}
       >
         <button
-          className="absolute left-4 top-4 z-30 text-white transition-all"
+          className="absolute left-4 top-4 z-30 transition-all lg:hidden"
           onClick={() => setNavState("CLOSED")}
         >
           <X size={30} />
         </button>
 
-        <div className="mx-auto mt-14 flex w-11/12 flex-grow select-none flex-col overflow-y-scroll">
+        <div className="mx-auto mt-14 flex w-11/12 flex-grow select-none flex-col overflow-y-scroll lg:mt-4">
           <button
-            className="text-md flex h-12 w-3/4 items-center justify-between rounded-md border border-black bg-black p-2 text-white transition hover:border-white"
+            className="text-md flex h-12 w-3/4 items-center justify-between rounded-md border border-black bg-black p-2  transition hover:border-white"
             onClick={() => {
               setNavState("CLOSED");
 
@@ -86,7 +86,7 @@ export default function Navigation() {
             })}
         </div>
 
-        <button className="m-4 h-16 rounded-md border border-white text-white transition hover:bg-white hover:text-black">
+        <button className="m-4 h-16 rounded-md border border-white  transition hover:bg-white hover:text-black">
           Upgrade
         </button>
       </div>
