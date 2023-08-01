@@ -51,7 +51,7 @@ export default function Home() {
                 Sign Up
               </Button>
             </SignUpButton>
-            <ChevronDown className="mx-auto mt-8" size={50} />
+            <ChevronDown className="mx-auto mt-8 text-white/20" size={50} />
           </div>
 
           <div className="flex flex-col gap-24 text-left">

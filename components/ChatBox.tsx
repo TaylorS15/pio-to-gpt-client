@@ -132,7 +132,7 @@ export default function ChatBox() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="SRP">SRP</SelectItem>
-                          <SelectItem value="3BP">3BP</SelectItem>
+                          {/* <SelectItem value="3BP">3BP</SelectItem> */}
                         </SelectContent>
                       </Select>
                     </FormControl>
