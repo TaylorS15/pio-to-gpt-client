@@ -151,7 +151,17 @@ export default function Home() {
                 </AccordionTrigger>
                 <AccordionContent className="text-lg text-white/80">
                   You are free to join our discord server and chat with us or
-                  other users about PokerGPT!
+                  other users about PokerGPT or to get help!
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="nine">
+                <AccordionTrigger className="text-left">
+                  Can I cancel my subscription?
+                </AccordionTrigger>
+                <AccordionContent className="text-lg text-white/80">
+                  You can cancel your subscription at any time and you will
+                  still be able to use the service until the end of your current
+                  billing period?
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
