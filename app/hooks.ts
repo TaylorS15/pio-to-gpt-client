@@ -14,6 +14,7 @@ export const useWindowResize = () => {
 
           const newWidth =
             window.innerWidth -
+            //Size of Sidebar
             parseInt(fontSize) * 18 -
             parseInt(fontSize) * 4;
 
@@ -29,6 +30,7 @@ export const useWindowResize = () => {
             document.documentElement,
           ).fontSize;
 
+          //Size of Sidebar
           return `${parseInt(fontSize) * 18}px`;
         } else {
           return "0%";
