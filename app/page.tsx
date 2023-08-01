@@ -77,6 +77,9 @@ export default function Home() {
                 and theory
               </h2>
             </div>
+            <h2 className="w-4/5 text-4xl font-semibold md:text-5xl">
+              For only <span className="text-pio-green">$25</span> a month
+            </h2>
           </div>
 
           <div className="mb-24">

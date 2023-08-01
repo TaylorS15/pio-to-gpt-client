@@ -41,17 +41,26 @@ export default function FAQ() {
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
             Even OpenAI's own GPT-4 has a limit to the amount of questions you
-            can ask and so do we. API use can become quite expensive with the
-            amount of data we are using to fine tune our own model and to
-            combine with user questions to give you accurate responses.
+            can ask, within a certain time period, and so do we. API use can
+            become quite expensive with the amount of data we are using to fine
+            tune our own model and to combine with user questions to give you
+            accurate responses.
+            <br></br>
+            <br></br>
             Currently, there is a limit of{" "}
             <span className="italic">25 questions per 6 hours</span> to prevent
-            abuse and we are looking to expand this over time. This should be
-            plenty of questions for normal use.
+            abuse and we are looking to expand this over time.
             <br></br>
             <br></br>
-            Questions that come back as not related to poker, or if our servers
-            are unresponsive, will not be counted towards your limit.
+            <span className="font-medium">
+              We don't limit the total number of questions you can ask per pay
+              period.
+            </span>
+            <br></br>
+            <br></br>
+            This should be plenty for normal use and questions that come back as
+            not related to poker, or if our servers are unresponsive, will not
+            be counted towards your limit!
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="four">
@@ -106,6 +115,37 @@ export default function FAQ() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="nine">
+          <AccordionTrigger className="text-left">
+            What is PokerGPT specialized for?
+          </AccordionTrigger>
+          <AccordionContent className="text-lg text-white/80">
+            PokerGPT is currently specialized for 100bb 6-max No Limit Hold'em
+            cash. Other games and formats are planned for the future.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="ten">
+          <AccordionTrigger className="text-left">
+            What spots are supported?
+          </AccordionTrigger>
+          <AccordionContent className="text-lg text-white/80">
+            There is currently heavy support for:
+            <ul className="">
+              <li>- SRP IP PFR and Blind vs Blind</li>
+              <li>- 3BP IP PFR</li>
+              <li>- 4BP IP PFR</li>
+              <li>- 3BP OOP PFR</li>
+              <li>- 4BP Blind vs Blind</li>
+            </ul>
+            Moderate support for:
+            <ul className="">
+              <li>- Preflop</li>
+              <li>- Cold call pots</li>
+              <li>- Multiway pots</li>
+              <li>- 5BP pots</li>
+            </ul>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="eleven">
           <AccordionTrigger className="text-left">
             Can I cancel my subscription?
           </AccordionTrigger>
