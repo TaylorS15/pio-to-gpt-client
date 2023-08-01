@@ -84,7 +84,7 @@ export default function ChatBox() {
       style={{ width: elementWidth, marginLeft: leftMargin }}
     >
       <div className="mx-auto w-full max-w-3xl">
-        <div className="h-[.15rem] w-3/5 rounded-md bg-gray-300 transition"></div>
+        <div className="h-[.15rem] w-full rounded-md bg-gray-300 transition"></div>
       </div>
       <Form {...form}>
         <form

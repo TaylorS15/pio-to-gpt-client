@@ -18,7 +18,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={montserrat.className}>{children}</body>
+        <body className={`${montserrat.className} bg-black text-white`}>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );

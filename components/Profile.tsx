@@ -1,5 +1,3 @@
-"use client";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +11,7 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function Profile() {
   return (
@@ -26,6 +25,11 @@ export default function Profile() {
             <DropdownMenuItem className="cursor-pointer">
               Account Info
             </DropdownMenuItem>
+            <Link href="/faq">
+              <DropdownMenuItem className="cursor-pointer">
+                FAQ
+              </DropdownMenuItem>
+            </Link>
             <SignOutButton>
               <DropdownMenuItem className="cursor-pointer">
                 Sign Out
