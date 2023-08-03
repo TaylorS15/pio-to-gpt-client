@@ -1,9 +1,23 @@
 "use client";
 
-import { Menu, X, MessageSquareDashed } from "lucide-react";
+import { Menu, X, MessageSquareDashed, Loader2 } from "lucide-react";
 import { useStore } from "@/app/store";
 import PastConversation from "@/components/PastConversation";
 import { useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
+
+interface UserPublicMetadata {
+  pastConversations: {
+    created: string;
+    conversation: {
+      question: string;
+      formation: string;
+      dynamic: string;
+      response: string | null;
+    }[];
+    lastUpdated: number;
+  }[];
+}
 
 export default function Navigation() {
   const {
@@ -16,15 +30,17 @@ export default function Navigation() {
     setConversation,
     updateConversation,
   } = useStore();
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
-    const pastConversations = JSON.parse(
-      localStorage.getItem("pastConversations") || "[]",
-    );
-    setPastConversations(pastConversations);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (user) {
+      const clerkPastConversations = user.publicMetadata
+        .pastConversations as unknown as UserPublicMetadata["pastConversations"];
+      setPastConversations(clerkPastConversations);
+    } else {
+      setPastConversations([]);
+    }
+  }, [user]);
 
   return (
     <div className="absolute left-0 top-0 w-0">
@@ -84,6 +100,9 @@ export default function Navigation() {
                 <PastConversation key={index} conversation={conversation} />
               );
             })}
+          {!isLoaded && (
+            <Loader2 className="mx-auto mt-4 animate-spin" size={25} />
+          )}
         </div>
 
         <button className="m-4 h-16 rounded-md border border-white  transition hover:bg-white hover:text-black">

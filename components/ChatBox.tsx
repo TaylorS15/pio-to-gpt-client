@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Textarea } from "./ui/textarea";
 import { useWindowResize } from "@/app/hooks";
+import { useUser } from "@clerk/nextjs";
 
 const formSchema = z.object({
   question: z
@@ -41,9 +42,7 @@ export default function ChatBox() {
     updateConversation,
     currentConversation,
   } = useStore();
-
   const { elementWidth, leftMargin } = useWindowResize();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,6 +51,7 @@ export default function ChatBox() {
       dynamic: undefined,
     },
   });
+  const userId = useUser().user?.id;
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     addQuestion({
@@ -61,10 +61,18 @@ export default function ChatBox() {
       response: null,
     });
 
+    const updatedConversation = useStore.getState().currentConversation;
+
+    console.log(updatedConversation);
+
     axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/api/question`,
-      data: form.getValues(),
+      data: {
+        form: form.getValues(),
+        conversation: updatedConversation,
+        userId: userId,
+      },
     })
       .then((res) => {
         updateResponse(res.data.message);
@@ -75,7 +83,7 @@ export default function ChatBox() {
         currentConversation && updateConversation(currentConversation);
       });
 
-    form.reset();
+    // form.reset();
   }
 
   return (

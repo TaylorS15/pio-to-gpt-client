@@ -21,7 +21,13 @@ export default function Chat() {
         {currentConversation?.conversation.map((qAndR, index) => {
           return (
             <div className="flex w-full flex-col gap-4" key={index}>
-              <ChatBubble type="user" text={qAndR.question} index={index} />
+              <ChatBubble
+                type="user"
+                text={qAndR.question}
+                formation={qAndR.formation}
+                dynamic={qAndR.dynamic}
+                index={index}
+              />
               {qAndR.response && (
                 <ChatBubble type="bot" text={qAndR.response} index={index} />
               )}

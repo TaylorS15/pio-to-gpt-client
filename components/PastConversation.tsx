@@ -1,6 +1,8 @@
 import { Conversation, useStore } from "@/app/store";
-import { MessageSquare } from "lucide-react";
-import { set } from "zod";
+import { useUser } from "@clerk/nextjs";
+import axios from "axios";
+import { Check, MessageSquare, Trash2, X } from "lucide-react";
+import { useState } from "react";
 
 export default function PastConversation({
   conversation,
@@ -12,9 +14,44 @@ export default function PastConversation({
     setNavState,
     currentConversation,
     addConversation,
+    setPastConversations,
     updateConversation,
     pastConversations,
   } = useStore();
+  const { user } = useUser();
+
+  const isActive = currentConversation?.created === conversation.created;
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [canDelete, setCanDelete] = useState(true);
+
+  function deleteConversation() {
+    setIsDeleting(false);
+    setCanDelete(false);
+    axios({
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/api/conversation/delete`,
+      data: {
+        userId: user?.id,
+        created: conversation.created,
+      },
+    })
+      .then(() => {
+        setCanDelete(true);
+        setPastConversations(
+          pastConversations
+            ? pastConversations?.filter(
+                (conversation) =>
+                  currentConversation &&
+                  conversation.created !== currentConversation.created,
+              )
+            : [],
+        );
+      })
+      .catch(() => {
+        setCanDelete(true);
+      });
+    setConversation(null);
+  }
 
   return (
     <button
@@ -49,9 +86,30 @@ export default function PastConversation({
       }}
     >
       <MessageSquare size={20} />
-      <p className="max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap">
+      <p className="max-w-[55%] overflow-hidden text-ellipsis whitespace-nowrap">
         {conversation.conversation[0].question}
       </p>
+      {isActive && isDeleting && (
+        <div className="ml-auto flex gap-1">
+          <Check
+            size={25}
+            onClick={() => deleteConversation()}
+            className="rounded-full p-0.5 transition hover:bg-white/20"
+          />
+          <X
+            size={25}
+            onClick={() => setIsDeleting(false)}
+            className="rounded-full p-0.5 transition hover:bg-white/20"
+          />
+        </div>
+      )}
+      {isActive && !isDeleting && canDelete && (
+        <Trash2
+          size={25}
+          onClick={() => setIsDeleting(true)}
+          className="ml-auto rounded-full p-1 transition hover:bg-white/20"
+        />
+      )}
     </button>
   );
 }

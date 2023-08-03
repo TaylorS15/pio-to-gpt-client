@@ -4,10 +4,14 @@ export default function ChatBubble({
   type,
   text,
   index,
+  dynamic,
+  formation,
 }: {
   type: "user" | "bot";
   text: string;
   index: number;
+  dynamic?: string;
+  formation?: string;
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -31,21 +35,11 @@ export default function ChatBubble({
         isLoaded ? "scale-100 opacity-100" : "scale-50 opacity-0"
       } min-w-sm h-auto w-auto max-w-md overflow-x-clip rounded-md p-3 font-medium  transition-all duration-300`}
     >
-      {typeof text === "string" ? (
-        <p className="text-MD">{text}</p>
-      ) : (
-        <>
-          <p className="text-md">{text[0]}</p>
-          <p className="text-xs text-gray-400">
-            {typeof text[1] === "string" && text[1] !== "" ? (
-              <span className="mr-2">{text[1]}</span>
-            ) : null}
-            {typeof text[2] === "string" && text[2] !== "" ? (
-              <span className="mr-2">{text[2]}</span>
-            ) : null}
-          </p>
-        </>
-      )}
+      <p className="text-MD">{text}</p>
+      <div className="flex gap-2">
+        {dynamic && <p className="text-sm text-gray-400">{dynamic}</p>}
+        {formation && <p className="text-sm text-gray-400">{formation}</p>}
+      </div>
     </div>
   );
 }
