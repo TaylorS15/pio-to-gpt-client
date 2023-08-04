@@ -20,7 +20,7 @@ interface AppState {
   setConversation: (conversation: Conversation | null) => void;
   addQuestion: (question: Question) => void;
   updateResponse: (response: string) => void;
-  setPastConversations: (pastConversation: Conversation[]) => void;
+  setPastConversations: (pastConversation: Conversation[] | null) => void;
   addConversation: (conversation: Conversation) => void;
   updateConversation: (conversation: Conversation) => void;
 }

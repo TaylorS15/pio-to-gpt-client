@@ -52,7 +52,7 @@ export default function FAQ() {
             abuse and we are looking to expand this over time.
             <br></br>
             <br></br>
-            <span className="font-medium">
+            <span className="font-bold">
               We don't limit the total number of questions you can ask per pay
               period.
             </span>
@@ -96,7 +96,7 @@ export default function FAQ() {
         </AccordionItem>
         <AccordionItem value="seven">
           <AccordionTrigger className="text-left">
-            How come questions can take a long time to answer?
+            Why can questions take a long time to answer?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
             This depends on both OpenAI's current GPT speeds, which can
@@ -110,8 +110,11 @@ export default function FAQ() {
             Where can I receive support or give feedback?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
-            You are free to join our discord server and chat with us or other
-            users about PokerGPT or to get help!
+            You are free to join our{" "}
+            <span className="cursor-pointer text-pio-blue hover:underline">
+              discord server
+            </span>{" "}
+            and chat with us or other users about PokerGPT or to get help!
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="nine">

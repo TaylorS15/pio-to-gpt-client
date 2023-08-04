@@ -34,11 +34,16 @@ export default function Navigation() {
 
   useEffect(() => {
     if (user) {
-      const clerkPastConversations = user.publicMetadata
-        .pastConversations as unknown as UserPublicMetadata["pastConversations"];
-      setPastConversations(clerkPastConversations);
+      const clerkPastConversations = user.publicMetadata.pastConversations;
+      if (clerkPastConversations) {
+        setPastConversations(
+          clerkPastConversations as UserPublicMetadata["pastConversations"],
+        );
+      } else {
+        setPastConversations(null);
+      }
     } else {
-      setPastConversations([]);
+      setPastConversations(null);
     }
   }, [user]);
 
