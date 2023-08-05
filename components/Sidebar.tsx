@@ -14,9 +14,11 @@ interface UserPublicMetadata {
       formation: string;
       dynamic: string;
       response: string | null;
+      created: number;
     }[];
     lastUpdated: number;
   }[];
+  lastQuestionTime: number;
 }
 
 export default function Navigation() {

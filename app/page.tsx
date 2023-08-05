@@ -40,10 +40,11 @@ export default function Home() {
           <div>
             <h2 className="mx-auto w-full text-3xl font-medium text-white lg:w-2/3">
               <Balancer>
-                Sign up now and get a free question to see what Poker
+                Sign up now and get a free question to see what{" "}
                 <span className="text-pio-red">G</span>
-                <span className="text-pio-green">P</span>
-                <span className="text-pio-blue">T</span> can do
+                <span className="text-pio-green">T</span>
+                <span className="text-pio-blue">O</span>
+                <span className="text-2xl">to</span>GPT can do
               </Balancer>
             </h2>
             <SignUpButton>
@@ -66,7 +67,7 @@ export default function Home() {
             <div className="flex gap-4">
               <Minus size={25} className="my-auto" />
               <h2 className="w-4/5 text-3xl font-medium md:text-4xl">
-                Combines massive datasets of solver outputs with GPT-4
+                Combines massive datasets of solver solutions with GPT-4
               </h2>
             </div>
 
@@ -78,7 +79,7 @@ export default function Home() {
               </h2>
             </div>
             <h2 className="w-4/5 text-4xl font-semibold md:text-5xl">
-              For only <span className="text-pio-green">$25</span> a month
+              For only <span className="text-pio-green">$20</span> a month
             </h2>
           </div>
 

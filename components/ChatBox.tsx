@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useStore } from "@/app/store";
+import { Conversation, useStore } from "@/app/store";
 import {
   Select,
   SelectContent,
@@ -23,6 +23,9 @@ import axios from "axios";
 import { Textarea } from "./ui/textarea";
 import { useWindowResize } from "@/app/hooks";
 import { useUser } from "@clerk/nextjs";
+import { useToast } from "./ui/use-toast";
+import { Toaster } from "./ui/toaster";
+import { useState } from "react";
 
 const formSchema = z.object({
   question: z
@@ -40,6 +43,7 @@ export default function ChatBox() {
     addQuestion,
     updateResponse,
     updateConversation,
+    pastConversations,
     currentConversation,
   } = useStore();
   const { elementWidth, leftMargin } = useWindowResize();
@@ -52,38 +56,82 @@ export default function ChatBox() {
     },
   });
   const userId = useUser().user?.id;
+  const { toast } = useToast();
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    addQuestion({
-      question: values.question,
-      formation: values.formation || "",
-      dynamic: values.dynamic || "",
-      response: null,
+    const date = Date.now();
+    const sixHoursAgo = date - 21600000;
+
+    let updatedPastConversations = useStore.getState().pastConversations;
+    const updatedCurrentConversation = useStore.getState().currentConversation;
+
+    if (updatedPastConversations === null && updatedCurrentConversation) {
+      updatedPastConversations = [updatedCurrentConversation];
+    }
+
+    const questionTimes = updatedPastConversations
+      ? updatedPastConversations.flatMap((conversation) => {
+          return conversation.conversation.map((question) => {
+            return question.created;
+          });
+        })
+      : [];
+    const questionsInLastSixHours = questionTimes.filter((time) => {
+      return time > sixHoursAgo;
     });
 
-    const updatedConversation = useStore.getState().currentConversation;
+    console.log(questionsInLastSixHours.length);
 
-    console.log(updatedConversation);
-
-    axios({
-      method: "post",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/api/question`,
-      data: {
-        form: form.getValues(),
-        conversation: updatedConversation,
-        userId: userId,
-      },
-    })
-      .then((res) => {
-        updateResponse(res.data.message);
-        currentConversation && updateConversation(currentConversation);
-      })
-      .catch(() => {
-        updateResponse("There was an error. Please try again. (Client Side)");
-        currentConversation && updateConversation(currentConversation);
+    if (questionsInLastSixHours.length < 25) {
+      setAwaitingResponse(true);
+      addQuestion({
+        question: values.question,
+        formation: values.formation || "",
+        dynamic: values.dynamic || "",
+        response: null,
+        created: date,
       });
 
-    // form.reset();
+      const updatedConversation = useStore.getState().currentConversation;
+
+      axios({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/api/question`,
+        data: {
+          form: form.getValues(),
+          conversation: updatedConversation,
+          userId: userId,
+        },
+      })
+        .then((res) => {
+          updateResponse(res.data.message);
+          currentConversation && updateConversation(currentConversation);
+          setAwaitingResponse(false);
+        })
+        .catch(() => {
+          updateResponse("There was an error. Please try again. (Client Side)");
+          currentConversation && updateConversation(currentConversation);
+          setAwaitingResponse(false);
+        });
+
+      // form.reset();
+    } else {
+      const timeSinceLastQuestion =
+        date - questionTimes[questionTimes.length - 1];
+      const hoursLeft = Math.floor(
+        (21600000 - timeSinceLastQuestion) / 3600000,
+      );
+      const minutesLeft = Math.floor(
+        ((21600000 - timeSinceLastQuestion) % 3600000) / 60000,
+      );
+
+      toast({
+        title: "Uh oh! You've reached your question limit.",
+        description: `You can ask another question in ${hoursLeft} hours and ${minutesLeft} minutes.`,
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -119,6 +167,7 @@ export default function ChatBox() {
             <Button
               type="submit"
               className="mt-auto h-12 w-24 select-none rounded-md bg-white text-black transition hover:bg-gray-200"
+              disabled={awaitingResponse}
             >
               Send
             </Button>
@@ -193,6 +242,7 @@ export default function ChatBox() {
           </div>
         </form>
       </Form>
+      <Toaster />
     </div>
   );
 }

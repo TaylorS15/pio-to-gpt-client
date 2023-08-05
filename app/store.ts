@@ -5,6 +5,7 @@ export type Question = {
   formation: string;
   dynamic: string;
   response: string | null;
+  created: number;
 };
 export type Conversation = {
   created: string;

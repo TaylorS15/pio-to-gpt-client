@@ -17,20 +17,20 @@ export default function FAQ() {
       <Accordion type="multiple" className="w-full text-left text-xl">
         <AccordionItem value="one">
           <AccordionTrigger className="text-left">
-            What is PokerGPT?
+            What is GTOtoGPT?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
-            PokerGPT is mean't to be used in conjunction with a solver, hand
+            GTOtoGPT is mean't to be used in conjunction with a solver, hand
             histories, or a database to help you reason out why a certain play
             is good or bad.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="two">
           <AccordionTrigger className="text-left">
-            How does PokerGPT work?
+            How does GTOtoGPT work?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
-            PokerGPT expands OpenAI's GPT with a massive dataset of solver data
+            GTOtoGPT expands OpenAI's GPT with a massive dataset of solver data
             to generate responses to user questions by picking relevant solver
             data and general poker knowledge to generate accurate responses.
           </AccordionContent>
@@ -68,8 +68,8 @@ export default function FAQ() {
             What data is collected?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
-            Both user questions and PokerGPT responses are collected anonymously
-            to further fine-tune our model and improve the quality of PokerGPT.
+            Both user questions and GTOtoGPT responses are collected anonymously
+            to further fine-tune our model and improve the quality of GTOtoGPT.
             No user data is ever sold to or shared with third parties.
           </AccordionContent>
         </AccordionItem>
@@ -79,7 +79,7 @@ export default function FAQ() {
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
             Yes! Giving positive or negative feedback to responses will
-            significantly improve the quality of PokerGPT responses over time.
+            significantly improve the quality of GTOtoGPT responses over time.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="six">
@@ -114,15 +114,15 @@ export default function FAQ() {
             <span className="cursor-pointer text-pio-blue hover:underline">
               discord server
             </span>{" "}
-            and chat with us or other users about PokerGPT or to get help!
+            and chat with us or other users about GTOtoGPT or to get help!
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="nine">
           <AccordionTrigger className="text-left">
-            What is PokerGPT specialized for?
+            What is GTOtoGPT specialized for?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
-            PokerGPT is currently specialized for 100bb 6-max No Limit Hold'em
+            GTOtoGPT is currently specialized for 100bb 6-max No Limit Hold'em
             cash. Other games and formats are planned for the future.
           </AccordionContent>
         </AccordionItem>

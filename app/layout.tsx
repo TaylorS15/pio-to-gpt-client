@@ -6,7 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PokerGPT",
+  title: "GTO to GPT",
   description: "Answer any poker question.",
 };
 
