@@ -5,6 +5,7 @@ import { useStore } from "@/app/store";
 import PastConversation from "@/components/PastConversation";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
+import { Button } from "./ui/button";
 
 interface UserPublicMetadata {
   pastConversations: {
@@ -112,9 +113,15 @@ export default function Navigation() {
           )}
         </div>
 
-        <button className="m-4 h-16 rounded-md border border-white  transition hover:bg-white hover:text-black">
-          Upgrade
-        </button>
+        <Button className="m-4 h-16 rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
+          <a
+            href={`https://buy.stripe.com/test_dR6g295nWgGfe9G144?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
+            target="_top"
+            rel="noopener noreferrer"
+          >
+            Upgrade
+          </a>
+        </Button>
       </div>
     </div>
   );

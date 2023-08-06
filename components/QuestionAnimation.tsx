@@ -33,7 +33,7 @@ export default function QuestionAnimation() {
         <div
           className={`${
             firstQuestion ? "scale-100 opacity-100" : "scale-50 opacity-0"
-          } mb-4 ml-auto w-96 rounded-md border border-white p-2 text-left  transition`}
+          } mb-4 ml-auto w-full max-w-sm rounded-md border border-white p-2 text-left  transition`}
         >
           <Typewriter
             options={{
@@ -51,7 +51,7 @@ export default function QuestionAnimation() {
         <div
           className={`${
             firstQuestion ? "scale-100 opacity-100" : "scale-50 opacity-0"
-          } mb-4 mr-auto w-96 rounded-md bg-pio-red/70 p-2 text-left  transition`}
+          } mb-4 mr-auto w-full max-w-sm rounded-md bg-pio-red/70 p-2 text-left  transition`}
         >
           <Typewriter
             options={{
@@ -69,7 +69,7 @@ export default function QuestionAnimation() {
         <div
           className={`${
             secondQuestion ? "scale-100 opacity-100" : "scale-50 opacity-0"
-          } mb-4 ml-auto w-96 rounded-md border border-white p-2 text-left  transition`}
+          } mb-4 ml-auto w-full max-w-sm rounded-md border border-white p-2 text-left  transition`}
         >
           <Typewriter
             options={{
@@ -87,7 +87,7 @@ export default function QuestionAnimation() {
         <div
           className={`${
             secondResponse ? "scale-100 opacity-100" : "scale-50 opacity-0"
-          } mb-4 mr-auto w-96 rounded-md bg-pio-green/70 p-2 text-left  transition`}
+          } mb-4 mr-auto w-full max-w-sm rounded-md bg-pio-green/70 p-2 text-left  transition`}
         >
           <Typewriter
             options={{

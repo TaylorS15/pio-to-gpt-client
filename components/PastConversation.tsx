@@ -29,7 +29,7 @@ export default function PastConversation({
     setCanDelete(false);
     axios({
       method: "post",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/api/conversation/delete`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/conversation/delete`,
       data: {
         userId: user?.id,
         created: conversation.created,

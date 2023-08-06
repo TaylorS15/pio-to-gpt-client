@@ -20,7 +20,7 @@ export default function FAQ() {
             What is GTOtoGPT?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
-            GTOtoGPT is mean't to be used in conjunction with a solver, hand
+            GTOtoGPT is meant to be used in conjunction with a solver, hand
             histories, or a database to help you reason out why a certain play
             is good or bad.
           </AccordionContent>
@@ -30,9 +30,10 @@ export default function FAQ() {
             How does GTOtoGPT work?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
-            GTOtoGPT expands OpenAI's GPT with a massive dataset of solver data
-            to generate responses to user questions by picking relevant solver
-            data and general poker knowledge to generate accurate responses.
+            GTOtoGPT expands OpenAI's very popular GPT models with a massive
+            dataset of solver data to generate responses to user questions by
+            picking relevant solver data and general poker knowledge to generate
+            accurate responses.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="three">
@@ -50,12 +51,6 @@ export default function FAQ() {
             Currently, there is a limit of{" "}
             <span className="italic">25 questions per 6 hours</span> to prevent
             abuse and we are looking to expand this over time.
-            <br></br>
-            <br></br>
-            <span className="font-bold">
-              We don't limit the total number of questions you can ask per pay
-              period.
-            </span>
             <br></br>
             <br></br>
             This should be plenty for normal use and questions that come back as
@@ -87,11 +82,14 @@ export default function FAQ() {
             How do I ask a good question?
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
-            You should give as much relevant information about the spot or hand
-            as possible. You can input entire hand histories or ask about
-            general poker theory as well. It is preferable to use the Dynamic
-            and Formation selection boxes below the chat box to give more
-            information regarding your question.
+            You should give as much relevant, and concise, information about the
+            question or hand as possible. For example: Instead of copying the
+            full hand history from a database, which usually includes tons of
+            extra information like unnecessary labels and player information,
+            write out a simplified version with only the relevant players and
+            actions. You can ask about general poker theory as well! It is
+            preferable to use the Dynamic and Formation selection boxes below
+            the chat box to give more information regarding your question.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="seven">
@@ -101,8 +99,10 @@ export default function FAQ() {
           <AccordionContent className="text-lg text-white/80">
             This depends on both OpenAI's current GPT speeds, which can
             fluctuate based on demand, and the amount of data being requested to
-            answer your question. We are always working on improving both the
-            speed and accuracy of responses.
+            answer your question. Some questions will take longer to ask than
+            others based on the required data needed to give an accurate
+            response. We are always working on improving both the speed and
+            accuracy of responses.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="eight">

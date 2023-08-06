@@ -6,12 +6,12 @@ import Balancer from "react-wrap-balancer";
 import QuestionAnimation from "@/components/QuestionAnimation";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Minus } from "lucide-react";
+import { ChevronDown, CornerUpLeft, CornerUpRight, Minus } from "lucide-react";
 import FAQ from "@/components/FAQ";
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen w-full flex-col items-center gap-8 bg-black p-6 text-white">
+    <main className="relative flex min-h-[100dvh] w-full flex-col items-center gap-8 bg-black p-6 text-white">
       <Navigation />
 
       <SignedIn>
@@ -38,7 +38,7 @@ export default function Home() {
           </div>
 
           <div>
-            <h2 className="mx-auto w-full text-3xl font-medium text-white lg:w-2/3">
+            <h2 className="mx-auto w-full text-4xl font-medium text-white lg:w-2/3">
               <Balancer>
                 Sign up now and get a free question to see what{" "}
                 <span className="text-pio-red">G</span>
@@ -55,33 +55,55 @@ export default function Home() {
             <ChevronDown className="mx-auto mt-8 text-white/20" size={50} />
           </div>
 
-          <div className="flex flex-col gap-24 text-left">
+          <div className="flex flex-col gap-16 text-left">
             <div className="flex gap-4">
               <Minus size={25} className="my-auto" />
-              <h2 className="w-4/5 text-3xl font-medium md:text-4xl">
-                Unlimited
-                <span className="align-top text-sm">*</span> questions
+              <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
+                Access to the only chat bot built to answer poker questions on
+                the market.
               </h2>
             </div>
 
             <div className="flex gap-4">
               <Minus size={25} className="my-auto" />
-              <h2 className="w-4/5 text-3xl font-medium md:text-4xl">
+              <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
                 Combines massive datasets of solver solutions with GPT-4
               </h2>
             </div>
 
             <div className="flex gap-4">
               <Minus size={25} className="my-auto" />
-              <h2 className="w-4/5 text-3xl font-medium md:text-4xl">
+              <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
                 Generates accurate reasoning behind No Limit Hold'em strategy
                 and theory
               </h2>
             </div>
-            <h2 className="w-4/5 text-4xl font-semibold md:text-5xl">
-              For only <span className="text-pio-green">$20</span> a month
+
+            <div className="flex gap-4">
+              <Minus size={25} className="my-auto" />
+              <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
+                Available on Desktop and Mobile browsers.
+              </h2>
+            </div>
+            <h2 className="w-4/5 text-3xl font-semibold md:text-4xl">
+              For only <span className="text-pio-green">$25</span> a month
             </h2>
           </div>
+
+          <p className="text-3xl font-medium">
+            <Balancer>
+              Speed up your learning by not just asking what a solver would do,
+              but answering why the solver does it. Want to know if you should
+              take one action over another based on your opponents tendancies?
+              Stop paying hundreds for hand reviews and get an answer in seconds
+              for a fraction of the price.
+            </Balancer>
+          </p>
+
+          <Button className="mx-auto flex h-20 w-full max-w-sm gap-8 border border-white bg-black text-2xl font-medium hover:bg-pio-green/80">
+            <h2>Sign Up Now</h2>
+            <CornerUpRight size={25} />
+          </Button>
 
           <div className="mb-24">
             <FAQ />

@@ -43,7 +43,6 @@ export default function ChatBox() {
     addQuestion,
     updateResponse,
     updateConversation,
-    pastConversations,
     currentConversation,
   } = useStore();
   const { elementWidth, leftMargin } = useWindowResize();
@@ -81,8 +80,6 @@ export default function ChatBox() {
       return time > sixHoursAgo;
     });
 
-    console.log(questionsInLastSixHours.length);
-
     if (questionsInLastSixHours.length < 25) {
       setAwaitingResponse(true);
       addQuestion({
@@ -97,7 +94,7 @@ export default function ChatBox() {
 
       axios({
         method: "post",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/api/question`,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/question`,
         data: {
           form: form.getValues(),
           conversation: updatedConversation,
