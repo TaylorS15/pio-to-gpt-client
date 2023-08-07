@@ -71,7 +71,6 @@ export default function ChatBox() {
         setSubscription(userPublicMetadata?.subscription);
       }
       if (userPublicMetadata?.lastQuestions) {
-        console.log(userPublicMetadata);
         setLastQuestions(userPublicMetadata?.lastQuestions);
       }
     }
