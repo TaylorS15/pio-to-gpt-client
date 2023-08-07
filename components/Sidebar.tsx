@@ -6,8 +6,9 @@ import PastConversation from "@/components/PastConversation";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
-interface UserPublicMetadata {
+export interface UserPublicMetadata {
   pastConversations: {
     created: string;
     conversation: {
@@ -19,7 +20,8 @@ interface UserPublicMetadata {
     }[];
     lastUpdated: number;
   }[];
-  lastQuestionTime: number;
+  subscription: "free" | "pro" | "admin";
+  lastQuestions: number[];
 }
 
 export default function Navigation() {
@@ -34,6 +36,9 @@ export default function Navigation() {
     updateConversation,
   } = useStore();
   const { user, isLoaded } = useUser();
+  const userPublicMetadata =
+    user?.publicMetadata as unknown as UserPublicMetadata;
+  const subscription = userPublicMetadata?.subscription;
 
   useEffect(() => {
     if (user) {
@@ -113,15 +118,16 @@ export default function Navigation() {
           )}
         </div>
 
-        <Button className="m-4 h-16 rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
-          <a
+        {subscription !== "pro" && subscription !== "admin" && (
+          <Link
+            className="p-4"
             href={`https://buy.stripe.com/test_dR6g295nWgGfe9G144?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
-            target="_top"
-            rel="noopener noreferrer"
           >
-            Upgrade
-          </a>
-        </Button>
+            <Button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
+              Upgrade
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );

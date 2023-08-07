@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Conversation, useStore } from "@/app/store";
+import { useStore } from "@/app/store";
 import {
   Select,
   SelectContent,
@@ -25,7 +25,8 @@ import { useWindowResize } from "@/app/hooks";
 import { useUser } from "@clerk/nextjs";
 import { useToast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { UserPublicMetadata } from "./Sidebar";
 
 const formSchema = z.object({
   question: z
@@ -54,14 +55,67 @@ export default function ChatBox() {
       dynamic: undefined,
     },
   });
-  const userId = useUser().user?.id;
+  const { user } = useUser();
   const { toast } = useToast();
   const [awaitingResponse, setAwaitingResponse] = useState(false);
+  const userPublicMetadata =
+    user?.publicMetadata as unknown as UserPublicMetadata;
+  const [subscription, setSubscription] = useState<"free" | "pro" | "admin">(
+    "free",
+  );
+  const [lastQuestions, setLastQuestions] = useState<number[]>([]);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  useEffect(() => {
+    if (user) {
+      if (userPublicMetadata?.subscription) {
+        setSubscription(userPublicMetadata?.subscription);
+      }
+      if (userPublicMetadata?.lastQuestions) {
+        console.log(userPublicMetadata);
+        setLastQuestions(userPublicMetadata?.lastQuestions);
+      }
+    }
+  }, [user, userPublicMetadata]);
+
+  function submitQuestion(values: z.infer<typeof formSchema>) {
     const date = Date.now();
-    const sixHoursAgo = date - 21600000;
 
+    setAwaitingResponse(true);
+    addQuestion({
+      question: values.question,
+      formation: values.formation || "",
+      dynamic: values.dynamic || "",
+      response: null,
+      created: date,
+    });
+
+    const updatedConversation = useStore.getState().currentConversation;
+
+    axios({
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/question`,
+      data: {
+        form: form.getValues(),
+        conversation: updatedConversation,
+        userId: user?.id,
+      },
+    })
+      .then((res) => {
+        updateResponse(res.data.message);
+        currentConversation && updateConversation(currentConversation);
+        setAwaitingResponse(false);
+        setLastQuestions([...lastQuestions, date]);
+      })
+      .catch(() => {
+        updateResponse("There was an error. Please try again. (Client Side)");
+        currentConversation && updateConversation(currentConversation);
+        setAwaitingResponse(false);
+      });
+
+    form.reset();
+  }
+
+  function onFormSubmit(values: z.infer<typeof formSchema>) {
     let updatedPastConversations = useStore.getState().pastConversations;
     const updatedCurrentConversation = useStore.getState().currentConversation;
 
@@ -69,65 +123,40 @@ export default function ChatBox() {
       updatedPastConversations = [updatedCurrentConversation];
     }
 
-    const questionTimes = updatedPastConversations
-      ? updatedPastConversations.flatMap((conversation) => {
-          return conversation.conversation.map((question) => {
-            return question.created;
-          });
-        })
-      : [];
-    const questionsInLastSixHours = questionTimes.filter((time) => {
-      return time > sixHoursAgo;
-    });
-
-    if (questionsInLastSixHours.length < 25) {
-      setAwaitingResponse(true);
-      addQuestion({
-        question: values.question,
-        formation: values.formation || "",
-        dynamic: values.dynamic || "",
-        response: null,
-        created: date,
+    if (subscription === "pro") {
+      const questionsInLastSixHours = lastQuestions.filter((time) => {
+        return time > 21600000;
       });
 
-      const updatedConversation = useStore.getState().currentConversation;
+      if (questionsInLastSixHours.length < 25) {
+        submitQuestion(values);
+      } else {
+        const timeSinceEarliestQuestion = Date.now() - lastQuestions[0];
+        const hoursLeft = Math.floor(
+          (21600000 - timeSinceEarliestQuestion) / 3600000,
+        );
+        const minutesLeft = Math.floor(
+          ((21600000 - timeSinceEarliestQuestion) % 3600000) / 60000,
+        );
 
-      axios({
-        method: "post",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/question`,
-        data: {
-          form: form.getValues(),
-          conversation: updatedConversation,
-          userId: userId,
-        },
-      })
-        .then((res) => {
-          updateResponse(res.data.message);
-          currentConversation && updateConversation(currentConversation);
-          setAwaitingResponse(false);
-        })
-        .catch(() => {
-          updateResponse("There was an error. Please try again. (Client Side)");
-          currentConversation && updateConversation(currentConversation);
-          setAwaitingResponse(false);
+        toast({
+          title: "Uh oh! You've reached your question limit.",
+          description: `You can ask another question in ${hoursLeft} hours and ${minutesLeft} minutes.`,
+          variant: "destructive",
         });
-
-      // form.reset();
+      }
+    } else if (subscription === "admin") {
+      submitQuestion(values);
     } else {
-      const timeSinceLastQuestion =
-        date - questionTimes[questionTimes.length - 1];
-      const hoursLeft = Math.floor(
-        (21600000 - timeSinceLastQuestion) / 3600000,
-      );
-      const minutesLeft = Math.floor(
-        ((21600000 - timeSinceLastQuestion) % 3600000) / 60000,
-      );
-
-      toast({
-        title: "Uh oh! You've reached your question limit.",
-        description: `You can ask another question in ${hoursLeft} hours and ${minutesLeft} minutes.`,
-        variant: "destructive",
-      });
+      if (lastQuestions.length === 0) {
+        submitQuestion(values);
+      } else {
+        toast({
+          title: "Uh oh! You've reached your question limit.",
+          description: `Upgrade to Pro to ask more questions!`,
+          variant: "destructive",
+        });
+      }
     }
   }
 
@@ -141,7 +170,7 @@ export default function ChatBox() {
       </div>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onFormSubmit)}
           className="mx-auto w-full max-w-3xl "
         >
           <div className="flex w-full max-w-3xl gap-4">
