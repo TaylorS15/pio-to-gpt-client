@@ -1,15 +1,22 @@
 "use client";
 
 import { useWindowResize } from "@/app/hooks";
+import { useStore } from "@/app/store";
 import { useAuth } from "@clerk/nextjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const { elementWidth, leftMargin } = useWindowResize();
+  const { setHeaderHeight } = useStore();
   const { userId } = useAuth();
   const isSignedIn = useState(() => {
     return userId ? true : false;
   });
+
+  useEffect(() => {
+    const header = document.querySelector(".header");
+    setHeaderHeight(header?.clientHeight || 0);
+  }, []);
 
   return (
     <div
@@ -17,11 +24,12 @@ export default function Header() {
         width: `${isSignedIn[0] ? elementWidth : "auto"}`,
         marginLeft: `${isSignedIn[0] ? leftMargin : "none"}`,
       }}
+      className="header"
     >
       <h1
         className={`${
           isSignedIn[0] ? "text-5xl" : "text-7xl"
-        } mt-8 w-full text-center font-semibold`}
+        } w-full text-center font-semibold`}
       >
         <span className="text-pio-red">G</span>
         <span className="text-pio-green">T</span>

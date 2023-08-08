@@ -2,38 +2,71 @@
 
 import { useStore } from "@/app/store";
 import ChatBubble from "./ChatBubble";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useWindowResize } from "@/app/hooks";
 
 export default function Chat() {
-  const { currentConversation } = useStore();
-
+  const { currentConversation, chatBoxHeight, headerHeight, textareaHeight } =
+    useStore();
   const { elementWidth, leftMargin } = useWindowResize();
+  const [chatHeight, setChatHeight] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
 
   useEffect(() => {
     const chat = document.querySelector(".chat");
     if (chat) chat.scrollTop = chat.scrollHeight;
   }, [currentConversation]);
 
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+    window.addEventListener("resize", () => {
+      setWindowHeight(window.innerHeight);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWindowHeight(window.innerHeight);
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    setChatHeight(
+      windowHeight - chatBoxHeight - 48 - headerHeight - textareaHeight - 75,
+    );
+  }, [windowHeight, chatBoxHeight, headerHeight, textareaHeight]);
+
   return (
-    <div style={{ width: elementWidth, marginLeft: leftMargin }}>
-      <div className="chat mx-auto flex h-[50dvh] max-h-[42rem] w-full max-w-3xl flex-col gap-4 overflow-y-scroll scroll-smooth rounded-md border border-white p-4">
-        {currentConversation?.conversation.map((qAndR, index) => {
-          return (
-            <div className="flex w-full flex-col gap-4" key={index}>
-              <ChatBubble
-                type="user"
-                text={qAndR.question}
-                formation={qAndR.formation}
-                dynamic={qAndR.dynamic}
-                index={index}
-              />
-              {qAndR.response && (
-                <ChatBubble type="bot" text={qAndR.response} index={index} />
-              )}
-            </div>
-          );
-        })}
+    <div
+      style={{ width: elementWidth, marginLeft: leftMargin }}
+      className="flex-grow"
+    >
+      <div
+        className="chat relative mx-auto flex w-full flex-col gap-4 scroll-smooth"
+        style={{ height: chatHeight }}
+      >
+        <div className="absolute top-0 z-10 h-10 w-full bg-gradient-to-b from-black to-black/0" />
+        <div className="mx-auto w-full max-w-7xl overflow-x-hidden overflow-y-scroll p-4">
+          <div className="h-8 w-full" />
+          {currentConversation?.data.map((qAndR, index) => {
+            return (
+              <div className="mb-4 flex w-full flex-col gap-4" key={index}>
+                <ChatBubble
+                  type="user"
+                  text={qAndR.question}
+                  formation={qAndR.formation}
+                  dynamic={qAndR.dynamic}
+                  index={index}
+                />
+                {qAndR.response && (
+                  <ChatBubble type="bot" text={qAndR.response} index={index} />
+                )}
+              </div>
+            );
+          })}
+          <div className="h-8 w-full" />
+        </div>
+        <div className="absolute bottom-0 z-10 h-10 w-full bg-gradient-to-t from-black to-black/0" />
       </div>
     </div>
   );

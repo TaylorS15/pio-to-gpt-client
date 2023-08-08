@@ -7,9 +7,10 @@ export type Question = {
   response: string | null;
   created: number;
 };
+
 export type Conversation = {
   created: string;
-  conversation: Question[];
+  data: Question[];
   lastUpdated: number;
 };
 
@@ -17,6 +18,9 @@ interface AppState {
   navState: "OPEN" | "CLOSED";
   currentConversation: Conversation | null;
   pastConversations: Conversation[] | null;
+  chatBoxHeight: number;
+  headerHeight: number;
+  textareaHeight: number;
   setNavState: (navState: "OPEN" | "CLOSED") => void;
   setConversation: (conversation: Conversation | null) => void;
   addQuestion: (question: Question) => void;
@@ -24,12 +28,18 @@ interface AppState {
   setPastConversations: (pastConversation: Conversation[] | null) => void;
   addConversation: (conversation: Conversation) => void;
   updateConversation: (conversation: Conversation) => void;
+  setChatBoxHeight: (height: number) => void;
+  setHeaderHeight: (height: number) => void;
+  setTextareaHeight: (height: number) => void;
 }
 
 export const useStore = create<AppState>()((set) => ({
   navState: "CLOSED",
   currentConversation: null,
   pastConversations: null,
+  chatBoxHeight: 0,
+  headerHeight: 0,
+  textareaHeight: 48,
   setNavState: (navState) => set(() => ({ navState })),
   setConversation: (currentConversation) =>
     set(() => ({ currentConversation })),
@@ -39,7 +49,7 @@ export const useStore = create<AppState>()((set) => ({
         return {
           currentConversation: {
             created: new Date().toISOString(),
-            conversation: [question],
+            data: [question],
             lastUpdated: Date.now(),
           },
         };
@@ -47,7 +57,7 @@ export const useStore = create<AppState>()((set) => ({
         return {
           currentConversation: {
             created: state.currentConversation.created,
-            conversation: [...state.currentConversation.conversation, question],
+            data: [...state.currentConversation.data, question],
             lastUpdated: Date.now(),
           },
         };
@@ -58,10 +68,9 @@ export const useStore = create<AppState>()((set) => ({
       if (state.currentConversation === null) {
         return state;
       } else {
-        const lastQuestionIndex =
-          state.currentConversation.conversation.length - 1;
+        const lastQuestionIndex = state.currentConversation.data.length - 1;
 
-        const updatedConversation = state.currentConversation.conversation.map(
+        const updatedConversation = state.currentConversation.data.map(
           (question, index) => {
             if (index === lastQuestionIndex) {
               return { ...question, response };
@@ -73,7 +82,7 @@ export const useStore = create<AppState>()((set) => ({
         return {
           currentConversation: {
             ...state.currentConversation,
-            conversation: updatedConversation,
+            data: updatedConversation,
             lastUpdated: Date.now(),
           },
         };
@@ -108,4 +117,13 @@ export const useStore = create<AppState>()((set) => ({
         return { pastConversations: updatedPastConversations };
       }
     }),
+  setChatBoxHeight: (chatBoxHeight) => {
+    set(() => ({ chatBoxHeight }));
+  },
+  setHeaderHeight: (headerHeight) => {
+    set(() => ({ headerHeight }));
+  },
+  setTextareaHeight: (textareaHeight) => {
+    set(() => ({ textareaHeight }));
+  },
 }));

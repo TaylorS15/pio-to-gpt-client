@@ -2,24 +2,14 @@
 
 import { Menu, X, MessageSquareDashed, Loader2 } from "lucide-react";
 import { useStore } from "@/app/store";
+import type { Conversation, Question } from "@/app/store";
 import PastConversation from "@/components/PastConversation";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
-import { Button } from "./ui/button";
 import Link from "next/link";
 
 export interface UserPublicMetadata {
-  pastConversations: {
-    created: string;
-    conversation: {
-      question: string;
-      formation: string;
-      dynamic: string;
-      response: string | null;
-      created: number;
-    }[];
-    lastUpdated: number;
-  }[];
+  pastConversations: Conversation[];
   subscription: "free" | "pro" | "admin";
   lastQuestions: number[];
 }
@@ -80,7 +70,7 @@ export default function Navigation() {
 
         <div className="mx-auto mt-14 flex w-11/12 flex-grow select-none flex-col overflow-y-scroll lg:mt-4">
           <button
-            className="text-md flex h-12 w-3/4 items-center justify-between rounded-md border border-black bg-black p-2  transition hover:border-white"
+            className="text-md mb-2 flex h-12 w-3/4 items-center justify-between rounded-md border border-black bg-black p-2  transition hover:border-white"
             onClick={() => {
               setNavState("CLOSED");
 
@@ -105,17 +95,19 @@ export default function Navigation() {
             <p>New Chat</p>
             <MessageSquareDashed size={20} />
           </button>
-          {pastConversations
-            ?.slice()
-            .reverse()
-            .map((conversation, index) => {
-              return (
-                <PastConversation key={index} conversation={conversation} />
-              );
-            })}
-          {!isLoaded && (
-            <Loader2 className="mx-auto mt-4 animate-spin" size={25} />
-          )}
+          <div className="overflow-y-scroll">
+            {pastConversations
+              ?.slice()
+              .sort((a, b) => b.lastUpdated - a.lastUpdated)
+              .map((conversation, index) => {
+                return (
+                  <PastConversation key={index} conversation={conversation} />
+                );
+              })}
+            {!isLoaded && (
+              <Loader2 className="mx-auto mt-4 animate-spin" size={25} />
+            )}
+          </div>
         </div>
 
         {subscription !== "pro" && subscription !== "admin" && (
@@ -123,9 +115,9 @@ export default function Navigation() {
             className="p-4"
             href={`https://buy.stripe.com/test_dR6g295nWgGfe9G144?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
           >
-            <Button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
+            <button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
               Upgrade
-            </Button>
+            </button>
           </Link>
         )}
       </div>

@@ -18,7 +18,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Textarea } from "./ui/textarea";
 import { useWindowResize } from "@/app/hooks";
@@ -34,7 +33,7 @@ const formSchema = z.object({
       required_error: "Please enter a question.",
     })
     .min(5, "Please enter at least 5 characters.")
-    .max(150, "Please enter at most 150 characters."),
+    .max(300, "Please enter at most 300 characters."),
   formation: z.string().optional(),
   dynamic: z.string().optional(),
 });
@@ -45,6 +44,7 @@ export default function ChatBox() {
     updateResponse,
     updateConversation,
     currentConversation,
+    setChatBoxHeight,
   } = useStore();
   const { elementWidth, leftMargin } = useWindowResize();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -76,6 +76,11 @@ export default function ChatBox() {
     }
   }, [user, userPublicMetadata]);
 
+  useEffect(() => {
+    const chatBox = document.querySelector(".chat-box");
+    setChatBoxHeight(chatBox?.clientHeight || 0);
+  }, []);
+
   function submitQuestion(values: z.infer<typeof formSchema>) {
     const date = Date.now();
 
@@ -106,7 +111,7 @@ export default function ChatBox() {
         setLastQuestions([...lastQuestions, date]);
       })
       .catch(() => {
-        updateResponse("There was an error. Please try again. (Client Side)");
+        updateResponse("There was an error. Please try again (cs)");
         currentConversation && updateConversation(currentConversation);
         setAwaitingResponse(false);
       });
@@ -123,11 +128,7 @@ export default function ChatBox() {
     }
 
     if (subscription === "pro") {
-      const questionsInLastSixHours = lastQuestions.filter((time) => {
-        return time > 21600000;
-      });
-
-      if (questionsInLastSixHours.length < 25) {
+      if (lastQuestions.length < 25) {
         submitQuestion(values);
       } else {
         const timeSinceEarliestQuestion = Date.now() - lastQuestions[0];
@@ -161,7 +162,7 @@ export default function ChatBox() {
 
   return (
     <div
-      className="mx-auto mt-auto flex max-w-5xl flex-col gap-4 lg:mx-0"
+      className="chat-box mx-auto mt-auto flex max-w-5xl flex-col gap-4 lg:mx-0"
       style={{ width: elementWidth, marginLeft: leftMargin }}
     >
       <div className="mx-auto w-full max-w-3xl">
@@ -170,7 +171,7 @@ export default function ChatBox() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onFormSubmit)}
-          className="mx-auto w-full max-w-3xl "
+          className="mx-auto w-full max-w-3xl"
         >
           <div className="flex w-full max-w-3xl gap-4">
             <FormField
@@ -183,19 +184,19 @@ export default function ChatBox() {
                     <Textarea
                       {...field}
                       autoComplete="off"
-                      className="text-md w-full resize-none bg-black"
+                      className="chat-box text-md w-full resize-none bg-black"
                     />
                   </FormControl>
                 </FormItem>
               )}
             />
-            <Button
+            <button
               type="submit"
               className="mt-auto h-12 w-24 select-none rounded-md bg-white text-black transition hover:bg-gray-200"
               disabled={awaitingResponse}
             >
               Send
-            </Button>
+            </button>
           </div>
           <div className="mt-4 select-none">
             <div className="flex w-max gap-4">
@@ -249,8 +250,8 @@ export default function ChatBox() {
                   </FormItem>
                 )}
               />
-              <Button
-                className="bg-white text-black transition hover:bg-gray-200"
+              <button
+                className="w-24 rounded-md bg-white text-black transition hover:bg-gray-200"
                 type="reset"
                 onClick={() => {
                   form.reset({
@@ -261,7 +262,7 @@ export default function ChatBox() {
                 }}
               >
                 Reset
-              </Button>
+              </button>
             </div>
             <p className="mt-2 text-sm">Optional Parameters</p>
           </div>

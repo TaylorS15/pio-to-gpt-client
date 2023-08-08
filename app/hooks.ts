@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 
 export const useWindowResize = () => {
   const [elementWidth, setElementWidth] = useState("100%");

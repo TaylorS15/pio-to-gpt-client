@@ -5,8 +5,7 @@ import Navigation from "@/components/Navigation";
 import Balancer from "react-wrap-balancer";
 import QuestionAnimation from "@/components/QuestionAnimation";
 import Header from "@/components/Header";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, CornerUpLeft, CornerUpRight, Minus } from "lucide-react";
+import { ChevronDown, CornerUpRight, Minus } from "lucide-react";
 import FAQ from "@/components/FAQ";
 
 export default function Home() {
@@ -48,9 +47,9 @@ export default function Home() {
               </Balancer>
             </h2>
             <SignUpButton>
-              <Button className="mt-8 h-12 w-36 bg-white p-2 text-lg text-black hover:bg-gray-200">
+              <button className="mt-8 h-12 w-36 rounded-md bg-white p-2 text-lg text-black transition hover:bg-gray-200">
                 Sign Up
-              </Button>
+              </button>
             </SignUpButton>
             <ChevronDown className="mx-auto mt-8 text-white/20" size={50} />
           </div>
@@ -100,10 +99,10 @@ export default function Home() {
             </Balancer>
           </p>
 
-          <Button className="mx-auto flex h-20 w-full max-w-sm gap-8 border border-white bg-black text-2xl font-medium hover:bg-pio-green/80">
+          <button className="mx-auto flex h-20 w-full max-w-sm items-center justify-center gap-8 rounded-md border border-white bg-black text-2xl font-medium transition hover:bg-pio-green/80">
             <h2>Sign Up Now</h2>
             <CornerUpRight size={25} />
-          </Button>
+          </button>
 
           <div className="mb-24">
             <FAQ />

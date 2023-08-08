@@ -87,7 +87,7 @@ export default function PastConversation({
     >
       <MessageSquare size={20} />
       <p className="max-w-[55%] overflow-hidden text-ellipsis whitespace-nowrap">
-        {conversation.conversation[0].question}
+        {conversation.data[0].question}
       </p>
       {isActive && isDeleting && (
         <div className="ml-auto flex gap-1">
