@@ -135,9 +135,7 @@ export default function FAQ() {
             <ul className="">
               <li>- SRP IP PFR and Blind vs Blind</li>
               <li>- 3BP IP PFR</li>
-              <li>- 4BP IP PFR</li>
               <li>- 3BP OOP PFR</li>
-              <li>- 4BP Blind vs Blind</li>
             </ul>
             Moderate support for:
             <ul className="">
@@ -145,6 +143,7 @@ export default function FAQ() {
               <li>- Cold call pots</li>
               <li>- Multiway pots</li>
               <li>- 5BP pots</li>
+              <li>- 4BP pots</li>
             </ul>
           </AccordionContent>
         </AccordionItem>

@@ -2,7 +2,7 @@
 
 import { Menu, X, MessageSquareDashed, Loader2 } from "lucide-react";
 import { useStore } from "@/app/store";
-import type { Conversation, Question } from "@/app/store";
+import type { Conversation } from "@/app/store";
 import PastConversation from "@/components/PastConversation";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";

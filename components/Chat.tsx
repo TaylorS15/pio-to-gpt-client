@@ -47,7 +47,7 @@ export default function Chat() {
       >
         <div className="absolute top-0 z-10 h-10 w-full bg-gradient-to-b from-black to-black/0" />
         <div className="mx-auto w-full max-w-7xl overflow-x-hidden overflow-y-scroll p-4">
-          <div className="h-8 w-full" />
+          <div className="h-12 w-full" />
           {currentConversation?.data.map((qAndR, index) => {
             return (
               <div className="mb-4 flex w-full flex-col gap-4" key={index}>
@@ -64,7 +64,7 @@ export default function Chat() {
               </div>
             );
           })}
-          <div className="h-8 w-full" />
+          <div className="h-12 w-full" />
         </div>
         <div className="absolute bottom-0 z-10 h-10 w-full bg-gradient-to-t from-black to-black/0" />
       </div>

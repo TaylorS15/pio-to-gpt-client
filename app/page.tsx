@@ -66,7 +66,7 @@ export default function Home() {
             <div className="flex gap-4">
               <Minus size={25} className="my-auto" />
               <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
-                Combines massive datasets of solver solutions with GPT-4
+                Combines massive datasets of solver solutions with GPT-4.
               </h2>
             </div>
 
@@ -74,7 +74,7 @@ export default function Home() {
               <Minus size={25} className="my-auto" />
               <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
                 Generates accurate reasoning behind No Limit Hold'em strategy
-                and theory
+                and theory.
               </h2>
             </div>
 

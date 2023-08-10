@@ -35,7 +35,12 @@ export default function ChatBubble({
         isLoaded ? "scale-100 opacity-100" : "scale-50 opacity-0"
       } min-w-sm h-auto w-auto max-w-md overflow-x-clip break-words rounded-md p-3 font-medium transition-all duration-300`}
     >
-      <p className="text-MD">{text}</p>
+      {text.split("\n").map((line, i) => (
+        <p className="text-MD" key={i}>
+          {line}
+          {i !== text.split("\n").length - 1 && <br />}
+        </p>
+      ))}
       <div className="flex gap-2">
         {dynamic && <p className="text-sm text-gray-400">{dynamic}</p>}
         {formation && <p className="text-sm text-gray-400">{formation}</p>}

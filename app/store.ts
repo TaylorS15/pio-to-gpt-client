@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 export type Question = {
   question: string;
+  depth: string;
   formation: string;
   dynamic: string;
   response: string | null;
@@ -24,7 +25,7 @@ interface AppState {
   setNavState: (navState: "OPEN" | "CLOSED") => void;
   setConversation: (conversation: Conversation | null) => void;
   addQuestion: (question: Question) => void;
-  updateResponse: (response: string) => void;
+  updateResponse: (response: string, stream: boolean) => void;
   setPastConversations: (pastConversation: Conversation[] | null) => void;
   addConversation: (conversation: Conversation) => void;
   updateConversation: (conversation: Conversation) => void;
@@ -63,29 +64,52 @@ export const useStore = create<AppState>()((set) => ({
         };
       }
     }),
-  updateResponse: (response) =>
+  updateResponse: (response, stream) =>
     set((state) => {
       if (state.currentConversation === null) {
         return state;
       } else {
         const lastQuestionIndex = state.currentConversation.data.length - 1;
 
-        const updatedConversation = state.currentConversation.data.map(
-          (question, index) => {
-            if (index === lastQuestionIndex) {
-              return { ...question, response };
-            }
-            return question;
-          },
-        );
+        if (stream) {
+          const updatedConversation = state.currentConversation.data.map(
+            (question, index) => {
+              if (index === lastQuestionIndex) {
+                const updatedResponse =
+                  state.currentConversation?.data[index].response === null
+                    ? state.currentConversation?.data[index].response + response
+                    : response;
+                return { ...question, response: updatedResponse };
+              }
+              return question;
+            },
+          );
 
-        return {
-          currentConversation: {
-            ...state.currentConversation,
-            data: updatedConversation,
-            lastUpdated: Date.now(),
-          },
-        };
+          return {
+            currentConversation: {
+              ...state.currentConversation,
+              data: updatedConversation,
+              lastUpdated: Date.now(),
+            },
+          };
+        } else {
+          const updatedConversation = state.currentConversation.data.map(
+            (question, index) => {
+              if (index === lastQuestionIndex) {
+                return { ...question, response };
+              }
+              return question;
+            },
+          );
+
+          return {
+            currentConversation: {
+              ...state.currentConversation,
+              data: updatedConversation,
+              lastUpdated: Date.now(),
+            },
+          };
+        }
       }
     }),
   setPastConversations: (pastConversations) =>

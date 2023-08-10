@@ -26,6 +26,7 @@ import { useToast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
 import { useEffect, useState } from "react";
 import { UserPublicMetadata } from "./Sidebar";
+import { io } from "socket.io-client";
 
 const formSchema = z.object({
   question: z
@@ -34,6 +35,7 @@ const formSchema = z.object({
     })
     .min(5, "Please enter at least 5 characters.")
     .max(300, "Please enter at most 300 characters."),
+  depth: z.string().optional(),
   formation: z.string().optional(),
   dynamic: z.string().optional(),
 });
@@ -87,6 +89,7 @@ export default function ChatBox() {
     setAwaitingResponse(true);
     addQuestion({
       question: values.question,
+      depth: "100bb",
       formation: values.formation || "",
       dynamic: values.dynamic || "",
       response: null,
@@ -95,28 +98,41 @@ export default function ChatBox() {
 
     const updatedConversation = useStore.getState().currentConversation;
 
-    axios({
-      method: "post",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/question`,
-      data: {
+    const socket = io(process.env.NEXT_PUBLIC_API_URL || "", {
+      autoConnect: false,
+    });
+
+    socket.connect();
+
+    socket.on("connect", () => {
+      console.log("connected");
+      socket.emit("/question", {
         form: form.getValues(),
         conversation: updatedConversation,
         userId: user?.id,
-      },
-    })
-      .then((res) => {
-        updateResponse(res.data.message);
-        currentConversation && updateConversation(currentConversation);
-        setAwaitingResponse(false);
-        setLastQuestions([...lastQuestions, date]);
-      })
-      .catch(() => {
-        updateResponse("There was an error. Please try again (cs)");
-        currentConversation && updateConversation(currentConversation);
-        setAwaitingResponse(false);
       });
+    });
 
-    form.reset();
+    socket.on("message", (res: { message: string }) => {
+      updateResponse(res.message, true);
+    });
+
+    socket.on("error", (res: { message: string }) => {
+      socket.disconnect();
+      updateResponse(res.message, false);
+      currentConversation && updateConversation(currentConversation);
+      setAwaitingResponse(false);
+      setLastQuestions([...lastQuestions, date]);
+    });
+
+    socket.on("disconnect", () => {
+      socket.disconnect();
+      currentConversation && updateConversation(currentConversation);
+      setAwaitingResponse(false);
+      setLastQuestions([...lastQuestions, date]);
+    });
+
+    // form.reset();
   }
 
   function onFormSubmit(values: z.infer<typeof formSchema>) {
@@ -192,7 +208,7 @@ export default function ChatBox() {
             />
             <button
               type="submit"
-              className="mt-auto h-12 w-24 select-none rounded-md bg-white text-black transition hover:bg-gray-200"
+              className="mt-auto h-12 w-24 select-none rounded-md bg-white font-medium text-black transition hover:bg-gray-200"
               disabled={awaitingResponse}
             >
               Send
@@ -215,7 +231,7 @@ export default function ChatBox() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="SRP">SRP</SelectItem>
-                          {/* <SelectItem value="3BP">3BP</SelectItem> */}
+                          <SelectItem value="3BP">3BP</SelectItem>
                         </SelectContent>
                       </Select>
                     </FormControl>
@@ -238,20 +254,40 @@ export default function ChatBox() {
                         <SelectTrigger className="w-[150px]">
                           <SelectValue placeholder="Formation" />
                         </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="BUvBB">BU vs BB</SelectItem>
-                          <SelectItem value="COvBB">CO vs BB</SelectItem>
-                          <SelectItem value="MPvBB">MP vs BB</SelectItem>
-                          <SelectItem value="UTGvBB">UTG vs BB</SelectItem>
-                          <SelectItem value="SBvBB">SB vs BB</SelectItem>
-                        </SelectContent>
+                        {form.getValues("dynamic") === "SRP" && (
+                          <SelectContent>
+                            <SelectItem value="BUvBB">BU vs BB</SelectItem>
+                            <SelectItem value="COvBB">CO vs BB</SelectItem>
+                            <SelectItem value="MPvBB">MP vs BB</SelectItem>
+                            <SelectItem value="UTGvBB">UTG vs BB</SelectItem>
+                            <SelectItem value="SBvBB">SB vs BB</SelectItem>
+                          </SelectContent>
+                        )}
+                        {form.getValues("dynamic") === "3BP" && (
+                          <SelectContent>
+                            <SelectItem value="BUvBB">MP vs UTG</SelectItem>
+                            <SelectItem value="COvBB">CO vs UTG</SelectItem>
+                            <SelectItem value="UTGvBB">CO vs MP</SelectItem>
+                            <SelectItem value="MPvBB">BU vs UTG</SelectItem>
+                            <SelectItem value="SBvBB">BU vs MP</SelectItem>
+                            <SelectItem value="SBvBB">BU vs CO</SelectItem>
+                            <SelectItem value="SBvBB">SB vs UTG</SelectItem>
+                            <SelectItem value="SBvBB">SB vs MP</SelectItem>
+                            <SelectItem value="SBvBB">SB vs CO</SelectItem>
+                            <SelectItem value="SBvBB">SB vs BU</SelectItem>
+                            <SelectItem value="SBvBB">BB vs UTG</SelectItem>
+                            <SelectItem value="SBvBB">BB vs MP</SelectItem>
+                            <SelectItem value="SBvBB">BB vs CO</SelectItem>
+                            <SelectItem value="SBvBB">BB vs BU</SelectItem>
+                          </SelectContent>
+                        )}
                       </Select>
                     </FormControl>
                   </FormItem>
                 )}
               />
               <button
-                className="w-24 rounded-md bg-white text-black transition hover:bg-gray-200"
+                className="w-24 rounded-md bg-white font-medium text-black transition hover:bg-gray-200"
                 type="reset"
                 onClick={() => {
                   form.reset({
