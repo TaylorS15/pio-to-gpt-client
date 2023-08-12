@@ -59,7 +59,7 @@ export default function Navigation() {
           navState === "OPEN"
             ? "translate-x-0 shadow-custom shadow-black/80"
             : "-translate-x-full"
-        } relative z-20 flex h-screen w-72 flex-col border-r border-white bg-black transition lg:translate-x-0 lg:shadow-none`}
+        } relative z-20 flex h-[100dvh] w-72 flex-col border-r border-white bg-black transition lg:translate-x-0 lg:shadow-none`}
       >
         <button
           className="absolute left-4 top-4 z-30 transition-all lg:hidden"

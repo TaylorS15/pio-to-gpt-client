@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Accordion,
   AccordionContent,
@@ -111,9 +112,15 @@ export default function FAQ() {
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
             You are free to join our{" "}
-            <span className="cursor-pointer text-pio-blue hover:underline">
-              discord server
-            </span>{" "}
+            <Link
+              href="https://discord.gg/ZunqSuUJdH"
+              rel="noopener noreferrer"
+              className="w-min transition hover:scale-110 hover:underline"
+            >
+              <span className="cursor-pointer text-pio-blue hover:underline">
+                discord server
+              </span>
+            </Link>{" "}
             and chat with us or other users about GTOtoGPT or to get help!
           </AccordionContent>
         </AccordionItem>
@@ -154,7 +161,7 @@ export default function FAQ() {
           <AccordionContent className="text-lg text-white/80">
             You can cancel your subscription at any time and you will still be
             able to use the service until the end of your current billing
-            period.
+            period. The link is in the footer of our site.
           </AccordionContent>
         </AccordionItem>
       </Accordion>

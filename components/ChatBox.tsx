@@ -18,7 +18,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import axios from "axios";
 import { Textarea } from "./ui/textarea";
 import { useWindowResize } from "@/app/hooks";
 import { useUser } from "@clerk/nextjs";
@@ -53,6 +52,7 @@ export default function ChatBox() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       question: "",
+      depth: "100bb",
       formation: undefined,
       dynamic: undefined,
     },
@@ -66,6 +66,7 @@ export default function ChatBox() {
     "free",
   );
   const [lastQuestions, setLastQuestions] = useState<number[]>([]);
+  const [progressBar, setProgressBar] = useState(0);
 
   useEffect(() => {
     if (user) {
@@ -105,20 +106,24 @@ export default function ChatBox() {
     socket.connect();
 
     socket.on("connect", () => {
-      console.log("connected");
-      socket.emit("/question", {
-        form: form.getValues(),
-        conversation: updatedConversation,
-        userId: user?.id,
-      });
+      setProgressBar(0);
+    });
+
+    socket.emit("/question", {
+      form: form.getValues(),
+      conversation: updatedConversation,
+      userId: user?.id,
     });
 
     socket.on("message", (res: { message: string }) => {
       updateResponse(res.message, true);
     });
 
+    socket.on("progress", (res: { progress: number }) => {
+      setProgressBar(res.progress);
+    });
+
     socket.on("error", (res: { message: string }) => {
-      socket.disconnect();
       updateResponse(res.message, false);
       currentConversation && updateConversation(currentConversation);
       setAwaitingResponse(false);
@@ -126,13 +131,15 @@ export default function ChatBox() {
     });
 
     socket.on("disconnect", () => {
-      socket.disconnect();
       currentConversation && updateConversation(currentConversation);
       setAwaitingResponse(false);
       setLastQuestions([...lastQuestions, date]);
+      setTimeout(() => {
+        setProgressBar(0);
+      }, 2000);
     });
 
-    // form.reset();
+    form.reset();
   }
 
   function onFormSubmit(values: z.infer<typeof formSchema>) {
@@ -144,22 +151,34 @@ export default function ChatBox() {
     }
 
     if (subscription === "pro") {
-      if (lastQuestions.length < 25) {
+      const conversationLength = updatedCurrentConversation
+        ? updatedCurrentConversation.data.length + 1
+        : 1;
+
+      if (lastQuestions.length < 25 && conversationLength < 6) {
         submitQuestion(values);
       } else {
-        const timeSinceEarliestQuestion = Date.now() - lastQuestions[0];
-        const hoursLeft = Math.floor(
-          (21600000 - timeSinceEarliestQuestion) / 3600000,
-        );
-        const minutesLeft = Math.floor(
-          ((21600000 - timeSinceEarliestQuestion) % 3600000) / 60000,
-        );
+        if (conversationLength >= 6) {
+          toast({
+            title: "Uh oh! This conversation is too long.",
+            description: `Start a fresh conversation to ask your question.`,
+            variant: "destructive",
+          });
+        } else {
+          const timeSinceEarliestQuestion = Date.now() - lastQuestions[0];
+          const hoursLeft = Math.floor(
+            (21600000 - timeSinceEarliestQuestion) / 3600000,
+          );
+          const minutesLeft = Math.floor(
+            ((21600000 - timeSinceEarliestQuestion) % 3600000) / 60000,
+          );
 
-        toast({
-          title: "Uh oh! You've reached your question limit.",
-          description: `You can ask another question in ${hoursLeft} hours and ${minutesLeft} minutes.`,
-          variant: "destructive",
-        });
+          toast({
+            title: "Uh oh! You've reached your question limit.",
+            description: `You can ask another question in ${hoursLeft} hours and ${minutesLeft} minutes.`,
+            variant: "destructive",
+          });
+        }
       }
     } else if (subscription === "admin") {
       submitQuestion(values);
@@ -182,7 +201,10 @@ export default function ChatBox() {
       style={{ width: elementWidth, marginLeft: leftMargin }}
     >
       <div className="mx-auto w-full max-w-3xl">
-        <div className="h-[.15rem] w-full rounded-md bg-gray-300 transition"></div>
+        <div
+          style={{ width: `${progressBar}%` }}
+          className="h-[.15rem] rounded-md bg-gray-300 transition-all duration-1000"
+        ></div>
       </div>
       <Form {...form}>
         <form
@@ -208,7 +230,11 @@ export default function ChatBox() {
             />
             <button
               type="submit"
-              className="mt-auto h-12 w-24 select-none rounded-md bg-white font-medium text-black transition hover:bg-gray-200"
+              className={`${
+                awaitingResponse
+                  ? "bg-white/50 hover:bg-white/50"
+                  : "bg-white hover:bg-white/90"
+              } mt-auto h-12 w-24 select-none rounded-md font-medium text-black transition `}
               disabled={awaitingResponse}
             >
               Send
@@ -287,7 +313,7 @@ export default function ChatBox() {
                 )}
               />
               <button
-                className="w-24 rounded-md bg-white font-medium text-black transition hover:bg-gray-200"
+                className="w-20 rounded-md bg-white font-medium text-black transition hover:bg-gray-200"
                 type="reset"
                 onClick={() => {
                   form.reset({

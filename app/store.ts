@@ -75,10 +75,11 @@ export const useStore = create<AppState>()((set) => ({
           const updatedConversation = state.currentConversation.data.map(
             (question, index) => {
               if (index === lastQuestionIndex) {
+                state.currentConversation?.data[index].response === null
+                  ? (state.currentConversation.data[index].response = "")
+                  : null;
                 const updatedResponse =
-                  state.currentConversation?.data[index].response === null
-                    ? state.currentConversation?.data[index].response + response
-                    : response;
+                  state.currentConversation?.data[index].response + response;
                 return { ...question, response: updatedResponse };
               }
               return question;

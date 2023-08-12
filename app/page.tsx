@@ -7,6 +7,7 @@ import QuestionAnimation from "@/components/QuestionAnimation";
 import Header from "@/components/Header";
 import { ChevronDown, CornerUpRight, Minus } from "lucide-react";
 import FAQ from "@/components/FAQ";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -21,7 +22,7 @@ export default function Home() {
 
       <SignedOut>
         <div className="flex w-full flex-col gap-10 text-center lg:max-w-6xl lg:gap-36">
-          <div className="flex flex-col gap-8">
+          <div className="mt-12 flex flex-col gap-16 md:gap-8">
             <Header />
 
             <h2 className="mx-auto max-w-3xl bg-gradient-to-br from-white to-slate-400 bg-clip-text text-2xl font-semibold text-transparent md:text-4xl">
@@ -32,7 +33,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="h-auto w-full rounded-md border border-white p-4 text-xl lg:mx-auto lg:w-3/4">
+          <div className="my-auto h-[32rem] w-full rounded-md text-xl lg:mx-auto lg:w-3/4">
             <QuestionAnimation />
           </div>
 
@@ -66,15 +67,16 @@ export default function Home() {
             <div className="flex gap-4">
               <Minus size={25} className="my-auto" />
               <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
-                Combines massive datasets of solver solutions with GPT-4.
+                Combines massive datasets of solver solutions and general poker
+                knowledge with GPT-4.
               </h2>
             </div>
 
             <div className="flex gap-4">
               <Minus size={25} className="my-auto" />
               <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
-                Generates accurate reasoning behind No Limit Hold'em strategy
-                and theory.
+                More accurate reasoning and higher quality responses to poker
+                strategy and theory questions than base GPT-4.
               </h2>
             </div>
 
@@ -84,29 +86,40 @@ export default function Home() {
                 Available on Desktop and Mobile browsers.
               </h2>
             </div>
-            <h2 className="w-4/5 text-3xl font-semibold md:text-4xl">
-              For only <span className="text-pio-green">$25</span> a month
+
+            <h2 className="w-4/5 text-4xl font-semibold md:text-5xl">
+              For only <span className="text-pio-green">$25</span> a month.
             </h2>
           </div>
 
-          <p className="text-3xl font-medium">
-            <Balancer>
-              Speed up your learning by not just asking what a solver would do,
-              but answering why the solver does it. Want to know if you should
-              take one action over another based on your opponents tendancies?
-              Stop paying hundreds for hand reviews and get an answer in seconds
-              for a fraction of the price.
-            </Balancer>
-          </p>
+          <div className="flex flex-col gap-8">
+            <p className="text-4xl font-medium">
+              <Balancer>
+                Speed up your learning by not just asking what a solver would
+                do,{" "}
+                <span className="text-pio-green">
+                  but answering why the solver does it.
+                </span>{" "}
+                Want to know if you should take one action over another based on
+                your opponents tendancies? Stop paying hundreds for hand reviews
+                and get an answer in seconds for{" "}
+                <span className="text-pio-green">a fraction of the price.</span>
+              </Balancer>
+            </p>
 
-          <button className="mx-auto flex h-20 w-full max-w-sm items-center justify-center gap-8 rounded-md border border-white bg-black text-2xl font-medium transition hover:bg-pio-green/80">
-            <h2>Sign Up Now</h2>
-            <CornerUpRight size={25} />
-          </button>
+            <SignUpButton>
+              <button className="mx-auto mt-10 flex h-20 w-full max-w-sm items-center justify-center gap-8 rounded-md border border-white bg-black text-2xl font-medium transition hover:bg-pio-green/80">
+                <h2>Sign Up Now</h2>
+                <CornerUpRight size={25} />
+              </button>
+            </SignUpButton>
+          </div>
 
           <div className="mb-24">
             <FAQ />
           </div>
+
+          <Footer />
         </div>
       </SignedOut>
     </main>
