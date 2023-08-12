@@ -40,7 +40,7 @@ export default function Home() {
           <div>
             <h2 className="mx-auto w-full text-4xl font-medium text-white lg:w-2/3">
               <Balancer>
-                Sign up now and get a free question to see what{" "}
+                Sign up now and get a free week to see what{" "}
                 <span className="text-pio-red">G</span>
                 <span className="text-pio-green">T</span>
                 <span className="text-pio-blue">O</span>
@@ -88,7 +88,7 @@ export default function Home() {
             </div>
 
             <h2 className="w-4/5 text-4xl font-semibold md:text-5xl">
-              For only <span className="text-pio-green">$25</span> a month.
+              For only <span className="text-pio-green">$20</span> a month.
             </h2>
           </div>
 
