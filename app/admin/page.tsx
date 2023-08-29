@@ -31,6 +31,9 @@ export default function Admin() {
               axios({
                 method: "post",
                 url: `${process.env.NEXT_PUBLIC_API_URL}/logs/request`,
+                headers: {
+                  Authorization: `Bearer ${user?.id}`,
+                },
                 data: {
                   userId: user?.id,
                 },
@@ -64,6 +67,9 @@ export default function Admin() {
                 axios({
                   method: "post",
                   url: `${process.env.NEXT_PUBLIC_API_URL}/logs/delete`,
+                  headers: {
+                    Authorization: `Bearer ${user?.id}`,
+                  },
                   data: {
                     userId: user?.id,
                   },

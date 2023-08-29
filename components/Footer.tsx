@@ -1,18 +1,25 @@
-import { UserButton } from "@clerk/nextjs";
+"use client";
+
+import { UserButton, useUser } from "@clerk/nextjs";
 import { Dot } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
+  const { user } = useUser();
+  const isPro =
+    user?.publicMetadata.subcription === "pro" ||
+    user?.publicMetadata.subcription === "admin";
+
   return (
-    <footer className="gap-4text-left mx-auto mt-auto flex h-16 w-max max-w-7xl items-center justify-center">
+    <footer className="mx-auto mt-auto flex h-16 w-max max-w-7xl items-center justify-center gap-4 text-left">
       <Link
         href="https://discord.gg/ZunqSuUJdH"
         rel="noopener noreferrer"
         className="w-min transition hover:scale-110 hover:underline"
       >
         <svg
-          width="40px"
-          height="40px"
+          width="35px"
+          height="35px"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,10 +31,16 @@ export default function Footer() {
           />
         </svg>
       </Link>
-      <Dot size={40} />
-      <p className="font-semibold text-white/70">Cancel Subscription</p>
-      <Dot size={40} />
-      <p className="font-semibold text-white">Privacy Policy</p>
+      <Dot size={35} />
+      {isPro && (
+        <>
+          <p className="text-base font-semibold text-white/70">
+            Cancel Subscription
+          </p>
+          <Dot size={35} />
+        </>
+      )}
+      <p className="text-base font-semibold text-white">Privacy Policy</p>
     </footer>
   );
 }

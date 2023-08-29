@@ -2,17 +2,13 @@
 
 import { Menu, X, MessageSquareDashed, Loader2 } from "lucide-react";
 import { useStore } from "@/app/store";
-import type { Conversation } from "@/app/store";
+import type { Conversation, UserPublicMetadata } from "@/app/types";
 import PastConversation from "@/components/PastConversation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
-
-export interface UserPublicMetadata {
-  pastConversations: Conversation[];
-  subscription: "free" | "pro" | "admin";
-  lastQuestions: number[];
-}
+import { z } from "zod";
 
 export default function Navigation() {
   const {
@@ -25,23 +21,26 @@ export default function Navigation() {
     setConversation,
     updateConversation,
   } = useStore();
-  const { user, isLoaded } = useUser();
-  const userPublicMetadata =
-    user?.publicMetadata as unknown as UserPublicMetadata;
+  const { user } = useUser();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const userPublicMetadata = user?.publicMetadata as UserPublicMetadata;
   const subscription = userPublicMetadata?.subscription;
 
   useEffect(() => {
     if (user) {
-      const clerkPastConversations = user.publicMetadata.pastConversations;
-      if (clerkPastConversations) {
-        setPastConversations(
-          clerkPastConversations as UserPublicMetadata["pastConversations"],
-        );
-      } else {
-        setPastConversations(null);
-      }
-    } else {
-      setPastConversations(null);
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/conversation/request`, {
+          headers: {
+            Authorization: `Bearer ${user.id}`,
+          },
+        })
+        .then((data) => {
+          console.log(data);
+
+          setPastConversations(data.data.pastConversations || null);
+          setIsLoaded(true);
+        })
+        .catch((error) => console.log(error));
     }
   }, [user]);
 

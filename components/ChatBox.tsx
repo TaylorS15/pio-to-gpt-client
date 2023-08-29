@@ -24,7 +24,7 @@ import { useUser } from "@clerk/nextjs";
 import { useToast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
 import { useEffect, useState } from "react";
-import { UserPublicMetadata } from "./Sidebar";
+import { UserPublicMetadata } from "@/app/types";
 import { io } from "socket.io-client";
 
 const formSchema = z.object({
@@ -101,6 +101,9 @@ export default function ChatBox() {
 
     const socket = io(process.env.NEXT_PUBLIC_API_URL || "", {
       autoConnect: false,
+      extraHeaders: {
+        Authorization: `Bearer ${user?.id}`,
+      },
     });
 
     socket.connect();

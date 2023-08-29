@@ -1,4 +1,5 @@
-import { Conversation, useStore } from "@/app/store";
+import { useStore } from "@/app/store";
+import { Conversation } from "@/app/types";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { Check, MessageSquare, Trash2, X } from "lucide-react";
@@ -30,6 +31,9 @@ export default function PastConversation({
     axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/conversation/delete`,
+      headers: {
+        Authorization: `Bearer ${user?.id}`,
+      },
       data: {
         userId: user?.id,
         created: conversation.created,

@@ -21,7 +21,7 @@ export default function Home() {
       </SignedIn>
 
       <SignedOut>
-        <div className="flex w-full flex-col gap-10 text-center lg:max-w-6xl lg:gap-36">
+        <div className="flex w-full flex-col gap-10 text-center lg:max-w-6xl lg:gap-32">
           <div className="mt-12 flex flex-col gap-16 md:gap-8">
             <Header />
 

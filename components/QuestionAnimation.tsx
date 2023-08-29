@@ -13,7 +13,7 @@ export default function QuestionAnimation() {
     }, 100);
     setTimeout(() => {
       setResponse(true);
-    }, 1500);
+    }, 1000);
   }, []);
 
   return (

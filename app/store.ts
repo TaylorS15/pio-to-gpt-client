@@ -1,19 +1,5 @@
 import { create } from "zustand";
-
-export type Question = {
-  question: string;
-  depth: string;
-  formation: string;
-  dynamic: string;
-  response: string | null;
-  created: number;
-};
-
-export type Conversation = {
-  created: string;
-  data: Question[];
-  lastUpdated: number;
-};
+import { Conversation, Question } from "./types";
 
 interface AppState {
   navState: "OPEN" | "CLOSED";
