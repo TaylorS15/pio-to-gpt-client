@@ -139,7 +139,7 @@ export default function ChatBox() {
       setLastQuestions([...lastQuestions, date]);
       setTimeout(() => {
         setProgressBar(0);
-      }, 2000);
+      }, 500);
     });
 
     form.reset();
@@ -260,7 +260,7 @@ export default function ChatBox() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="SRP">SRP</SelectItem>
-                          <SelectItem value="3BP">3BP</SelectItem>
+                          {/* <SelectItem value="3BP">3BP</SelectItem> */}
                         </SelectContent>
                       </Select>
                     </FormControl>
@@ -286,28 +286,28 @@ export default function ChatBox() {
                         {form.getValues("dynamic") === "SRP" && (
                           <SelectContent>
                             <SelectItem value="BUvBB">BU vs BB</SelectItem>
-                            <SelectItem value="COvBB">CO vs BB</SelectItem>
+                            {/* <SelectItem value="COvBB">CO vs BB</SelectItem>
                             <SelectItem value="MPvBB">MP vs BB</SelectItem>
                             <SelectItem value="UTGvBB">UTG vs BB</SelectItem>
-                            <SelectItem value="SBvBB">SB vs BB</SelectItem>
+                            <SelectItem value="SBvBB">SB vs BB</SelectItem> */}
                           </SelectContent>
                         )}
                         {form.getValues("dynamic") === "3BP" && (
                           <SelectContent>
-                            <SelectItem value="BUvBB">MP vs UTG</SelectItem>
-                            <SelectItem value="COvBB">CO vs UTG</SelectItem>
-                            <SelectItem value="UTGvBB">CO vs MP</SelectItem>
-                            <SelectItem value="MPvBB">BU vs UTG</SelectItem>
-                            <SelectItem value="SBvBB">BU vs MP</SelectItem>
-                            <SelectItem value="SBvBB">BU vs CO</SelectItem>
-                            <SelectItem value="SBvBB">SB vs UTG</SelectItem>
-                            <SelectItem value="SBvBB">SB vs MP</SelectItem>
-                            <SelectItem value="SBvBB">SB vs CO</SelectItem>
-                            <SelectItem value="SBvBB">SB vs BU</SelectItem>
-                            <SelectItem value="SBvBB">BB vs UTG</SelectItem>
-                            <SelectItem value="SBvBB">BB vs MP</SelectItem>
-                            <SelectItem value="SBvBB">BB vs CO</SelectItem>
-                            <SelectItem value="SBvBB">BB vs BU</SelectItem>
+                            <SelectItem value="MPvUTG">MP vs UTG</SelectItem>
+                            <SelectItem value="COvUTG">CO vs UTG</SelectItem>
+                            <SelectItem value="COvMP">CO vs MP</SelectItem>
+                            <SelectItem value="BUvUTG">BU vs UTG</SelectItem>
+                            <SelectItem value="BUvMP">BU vs MP</SelectItem>
+                            <SelectItem value="BUvCO">BU vs CO</SelectItem>
+                            <SelectItem value="SBvUTG">SB vs UTG</SelectItem>
+                            <SelectItem value="SBvMP">SB vs MP</SelectItem>
+                            <SelectItem value="SBvCO">SB vs CO</SelectItem>
+                            <SelectItem value="SBvBU">SB vs BU</SelectItem>
+                            <SelectItem value="BBvUTG">BB vs UTG</SelectItem>
+                            <SelectItem value="BBvMP">BB vs MP</SelectItem>
+                            <SelectItem value="BBvCO">BB vs CO</SelectItem>
+                            <SelectItem value="BBvBU">BB vs BU</SelectItem>
                           </SelectContent>
                         )}
                       </Select>

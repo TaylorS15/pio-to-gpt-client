@@ -6,7 +6,6 @@ import JSZip from "jszip";
 import { CornerUpLeft } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { set } from "zod";
 
 export default function Admin() {
   const { user } = useUser();
@@ -23,8 +22,8 @@ export default function Admin() {
         <h1 className="text-2xl">Back</h1>
       </Link>
 
-      {isAdmin && (
-        <div className="flex w-36 flex-col gap-4">
+      {/* {isAdmin && (
+        <div className="flex w-max flex-col gap-4">
           <button
             className="hover:underline"
             onClick={() => {
@@ -56,10 +55,10 @@ export default function Admin() {
                 .catch();
             }}
           >
-            request logs
+            PLEASE ASK BEFORE REQUESTING: request logs
           </button>
           <button
-            className="hover:underline"
+            className="w-max hover:underline"
             onClick={() => {
               if (deleteConfirmation === false) {
                 setDeleteConfirmation(true);
@@ -82,10 +81,12 @@ export default function Admin() {
               }
             }}
           >
-            {deleteConfirmation ? "confirm deletion" : "delete logs"}
+            {deleteConfirmation
+              ? "DO NOT USE: confirm deletion"
+              : "DO NOT USE: delete logs"}
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

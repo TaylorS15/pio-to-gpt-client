@@ -2,13 +2,12 @@
 
 import { Menu, X, MessageSquareDashed, Loader2 } from "lucide-react";
 import { useStore } from "@/app/store";
-import type { Conversation, UserPublicMetadata } from "@/app/types";
+import type { UserPublicMetadata } from "@/app/types";
 import PastConversation from "@/components/PastConversation";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import Link from "next/link";
-import { z } from "zod";
 
 export default function Navigation() {
   const {
@@ -35,8 +34,6 @@ export default function Navigation() {
           },
         })
         .then((data) => {
-          console.log(data);
-
           setPastConversations(data.data.pastConversations || null);
           setIsLoaded(true);
         })

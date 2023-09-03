@@ -8,7 +8,7 @@ import {
 
 export default function FAQ() {
   return (
-    <div className="w-full max-w-7xl">
+    <div className="w-10/12 max-w-7xl md:w-full">
       <h2 className="text-left text-3xl font-medium">
         <span className="text-pio-red">F</span>
         <span className="text-pio-green">A</span>
@@ -69,7 +69,7 @@ export default function FAQ() {
             No user data is ever sold to or shared with third parties.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="five">
+        {/* <AccordionItem value="five">
           <AccordionTrigger className="text-left">
             Should I give feedback to responses?
           </AccordionTrigger>
@@ -77,7 +77,7 @@ export default function FAQ() {
             Yes! Giving positive or negative feedback to responses will
             significantly improve the quality of GTOtoGPT responses over time.
           </AccordionContent>
-        </AccordionItem>
+        </AccordionItem> */}
         <AccordionItem value="six">
           <AccordionTrigger className="text-left">
             How do I ask a good question?
@@ -133,7 +133,7 @@ export default function FAQ() {
             cash. Other games and formats are planned for the future.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="ten">
+        {/* <AccordionItem value="ten">
           <AccordionTrigger className="text-left">
             What spots are supported?
           </AccordionTrigger>
@@ -153,7 +153,7 @@ export default function FAQ() {
               <li>- 4BP pots</li>
             </ul>
           </AccordionContent>
-        </AccordionItem>
+        </AccordionItem> */}
         <AccordionItem value="eleven">
           <AccordionTrigger className="text-left">
             Can I cancel my subscription?
