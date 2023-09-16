@@ -54,6 +54,11 @@ export default function FAQ() {
             abuse and we are looking to expand this over time.
             <br></br>
             <br></br>
+            There is also a conversation limit of conversation.{" "}
+            <span className="italic">5 questions and 5 responses per</span> to
+            prevent abuse and we are looking to expand this over time.
+            <br></br>
+            <br></br>
             This should be plenty for normal use and questions that come back as
             not related to poker, or if our servers are unresponsive, will not
             be counted towards your limit!
@@ -84,13 +89,13 @@ export default function FAQ() {
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
             You should give as much relevant, and concise, information about the
-            question or hand as possible. For example: Instead of copying the
-            full hand history from a database, which usually includes tons of
-            extra information like unnecessary labels and player information,
-            write out a simplified version with only the relevant players and
-            actions. You can ask about general poker theory as well! It is
-            preferable to use the Dynamic and Formation selection boxes below
-            the chat box to give more information regarding your question.
+            question or hand as possible. Instead of copying the full hand
+            history from a database, which usually includes tons of extra
+            information like unnecessary labels and player information, write
+            out a simplified version with only the relevant players and actions.
+            You can ask about general poker theory as well! It is preferable to
+            use the Dynamic and Formation selection boxes below the chat box to
+            give more information regarding your question.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="seven">

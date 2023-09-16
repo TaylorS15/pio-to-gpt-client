@@ -88,7 +88,7 @@ export default function Home() {
             </div>
 
             <h2 className="w-4/5 text-4xl font-semibold md:text-5xl">
-              For only <span className="text-pio-green">$20</span> a month.
+              For only <span className="text-pio-green">$10</span> a month.
             </h2>
           </div>
 

@@ -37,7 +37,9 @@ export default function Navigation() {
           setPastConversations(data.data.pastConversations || null);
           setIsLoaded(true);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          setIsLoaded(true);
+        });
     }
   }, [user]);
 
@@ -109,10 +111,10 @@ export default function Navigation() {
         {subscription !== "pro" && subscription !== "admin" && (
           <Link
             className="p-4"
-            href={`https://buy.stripe.com/test_dR6g295nWgGfe9G144?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
+            href={`https://buy.stripe.com/test_fZedU18A8ahR3v2eUV?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
           >
             <button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
-              Upgrade
+              Upgrade and get a free week!
             </button>
           </Link>
         )}
