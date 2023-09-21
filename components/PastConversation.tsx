@@ -20,7 +20,6 @@ export default function PastConversation({
     pastConversations,
   } = useStore();
   const { user } = useUser();
-
   const isActive = currentConversation?.created === conversation.created;
   const [isDeleting, setIsDeleting] = useState(false);
   const [canDelete, setCanDelete] = useState(true);
@@ -59,7 +58,7 @@ export default function PastConversation({
 
   return (
     <button
-      className="text-md flex h-12 w-full items-center gap-4 rounded-md bg-black p-2  transition hover:bg-white/10"
+      className="flex h-12 w-full items-center gap-4 rounded-md bg-black p-2 transition hover:bg-white/10"
       onClick={() => {
         setNavState("CLOSED");
 

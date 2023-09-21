@@ -65,6 +65,9 @@ export default function ChatBox() {
   const [subscription, setSubscription] = useState<"free" | "pro" | "admin">(
     "free",
   );
+  /**
+   * Array of timestamps of the last 25 questions asked by the user.
+   */
   const [lastQuestions, setLastQuestions] = useState<number[]>([]);
   const [progressBar, setProgressBar] = useState(0);
 
