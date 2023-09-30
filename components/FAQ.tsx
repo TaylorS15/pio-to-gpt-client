@@ -8,7 +8,7 @@ import {
 
 export default function FAQ() {
   return (
-    <div className="w-10/12 max-w-7xl md:w-full">
+    <div className="mx-auto w-10/12 max-w-7xl md:w-full">
       <h2 className="text-left text-3xl font-medium">
         <span className="text-pio-red">F</span>
         <span className="text-pio-green">A</span>
@@ -43,9 +43,9 @@ export default function FAQ() {
           </AccordionTrigger>
           <AccordionContent className="text-lg text-white/80">
             Even OpenAI's own GPT-4 has a limit to the amount of questions you
-            can ask, within a certain time period, and so do we. API use can
+            can ask within a certain time period, and so do we. API use can
             become quite expensive with the amount of data we are using to fine
-            tune our own model and to combine with user questions to give you
+            tune our own models and combining with user questions to give you
             accurate responses.
             <br></br>
             <br></br>
@@ -54,7 +54,7 @@ export default function FAQ() {
             abuse and we are looking to expand this over time.
             <br></br>
             <br></br>
-            There is also a conversation limit of conversation.{" "}
+            There is also a conversation limit of{" "}
             <span className="italic">5 questions and 5 responses per</span> to
             prevent abuse and we are looking to expand this over time.
             <br></br>

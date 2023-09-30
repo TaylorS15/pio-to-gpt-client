@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import { ChevronDown, CornerUpRight, Minus } from "lucide-react";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import ToastWrapper from "@/components/ToastWrapper";
 
 export default function Home() {
   return (
@@ -27,7 +28,7 @@ export default function Home() {
 
             <h2 className="mx-auto max-w-3xl bg-gradient-to-br from-white to-slate-400 bg-clip-text text-2xl font-semibold text-transparent md:text-4xl">
               <Balancer>
-                Supercharge your poker game by bringing solver solutions and
+                Supercharge your poker learning by bringing solver solutions and
                 GPT-4 together.
               </Balancer>
             </h2>
@@ -88,22 +89,22 @@ export default function Home() {
             </div>
 
             <h2 className="w-4/5 text-4xl font-semibold md:text-5xl">
-              For only <span className="text-pio-green">$10</span> a month.
+              For only <span className="line-through opacity-60">$20</span>{" "}
+              <span className="text-pio-green">$10</span> a month.
             </h2>
           </div>
 
           <div className="flex flex-col gap-8">
             <p className="text-4xl font-medium">
               <Balancer>
-                Speed up your learning by not just asking what a solver would
-                do,{" "}
+                Speed up your learning by not just asking what a solver would do{" "}
                 <span className="text-pio-green">
                   but answering why the solver does it.
                 </span>{" "}
                 Want to know if you should take one action over another based on
-                your opponents tendancies? Stop paying hundreds for hand reviews
-                and get an answer in seconds for{" "}
-                <span className="text-pio-green">a fraction of the price.</span>
+                opponent tendancies? Get insight on these types of questions for{" "}
+                <span className="text-pio-green">a fraction of the price</span>{" "}
+                compared to coaching.
               </Balancer>
             </p>
 
@@ -118,6 +119,8 @@ export default function Home() {
           <div className="mb-24">
             <FAQ />
           </div>
+
+          <ToastWrapper />
 
           <Footer />
         </div>

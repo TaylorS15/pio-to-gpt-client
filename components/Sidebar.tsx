@@ -2,7 +2,7 @@
 
 import { Menu, X, MessageSquareDashed, Loader2 } from "lucide-react";
 import { useStore } from "@/app/store";
-import type { UserPublicMetadata } from "@/app/types";
+import type { Conversation, UserPublicMetadata } from "@/app/types";
 import PastConversation from "@/components/PastConversation";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -108,10 +108,10 @@ export default function Navigation() {
           </div>
         </div>
 
-        {subscription !== "pro" && subscription !== "admin" && (
+        {subscription === "free" && (
           <Link
             className="p-4"
-            href={`https://buy.stripe.com/test_fZedU18A8ahR3v2eUV?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
+            href={`https://buy.stripe.com/test_3cs9DL9Ec89J7LiaEG?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
           >
             <button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
               Upgrade and get a free week!
