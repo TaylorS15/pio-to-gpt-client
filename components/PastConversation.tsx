@@ -56,37 +56,39 @@ export default function PastConversation({
     setConversation(null);
   }
 
+  function handleConversationClick() {
+    setNavState("CLOSED");
+
+    if (!currentConversation) {
+      setConversation(conversation);
+    }
+
+    if (currentConversation) {
+      const isInPastConversations = pastConversations
+        ? pastConversations.findIndex(
+            (conversation) =>
+              conversation.created === currentConversation.created,
+          )
+        : -1;
+
+      if (isInPastConversations === -1) {
+        addConversation(currentConversation);
+        setConversation(conversation);
+      } else {
+        if (currentConversation.created === conversation.created) {
+          return;
+        } else {
+          updateConversation(currentConversation);
+          setConversation(conversation);
+        }
+      }
+    }
+  }
+
   return (
     <button
       className="flex h-12 w-full items-center gap-4 rounded-md bg-black p-2 transition hover:bg-white/10"
-      onClick={() => {
-        setNavState("CLOSED");
-
-        if (!currentConversation) {
-          setConversation(conversation);
-        }
-
-        if (currentConversation) {
-          const isInPastConversations = pastConversations
-            ? pastConversations.findIndex(
-                (conversation) =>
-                  conversation.created === currentConversation.created,
-              )
-            : -1;
-
-          if (isInPastConversations === -1) {
-            addConversation(currentConversation);
-            setConversation(conversation);
-          } else {
-            if (currentConversation.created === conversation.created) {
-              return;
-            } else {
-              updateConversation(currentConversation);
-              setConversation(conversation);
-            }
-          }
-        }
-      }}
+      onClick={() => handleConversationClick()}
     >
       <MessageSquare size={20} />
       <p className="max-w-[55%] overflow-hidden text-ellipsis whitespace-nowrap">
