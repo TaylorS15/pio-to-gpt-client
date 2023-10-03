@@ -145,6 +145,13 @@ export default function ChatBox() {
       }, 500);
     });
 
+    socket.on("connect_error", (err) => {
+      updateResponse("Server is unreachable, please try again later!", false);
+      currentConversation && updateConversation(currentConversation);
+      setAwaitingResponse(false);
+      setLastQuestions([...lastQuestions, date]);
+    });
+
     form.reset();
   }
 

@@ -2,16 +2,13 @@
 
 import { useWindowResize } from "@/app/hooks";
 import { useStore } from "@/app/store";
-import { useAuth } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const { elementWidth, leftMargin } = useWindowResize();
   const { setHeaderHeight } = useStore();
-  const { userId } = useAuth();
-  const isSignedIn = useState(() => {
-    return userId ? true : false;
-  });
+  const pathName = usePathname();
 
   useEffect(() => {
     const header = document.querySelector(".header");
@@ -21,14 +18,14 @@ export default function Header() {
   return (
     <div
       style={{
-        width: `${isSignedIn[0] ? elementWidth : "auto"}`,
-        marginLeft: `${isSignedIn[0] ? leftMargin : "none"}`,
+        width: `${pathName === "/chat" ? elementWidth : "auto"}`,
+        marginLeft: `${pathName === "/chat" ? leftMargin : "none"}`,
       }}
       className="header"
     >
       <h1
         className={`${
-          isSignedIn[0] ? "text-5xl" : "text-7xl"
+          pathName === "/chat" ? "text-5xl" : "text-7xl"
         } w-full text-center font-semibold`}
       >
         <span className="text-pio-red">G</span>
@@ -36,7 +33,7 @@ export default function Header() {
         <span className="text-pio-blue">O</span>
         <span className="bg-gradient-to-br from-white to-slate-300 bg-clip-text text-transparent">
           <span
-            className={`${isSignedIn[0] ? "text-4xl" : "text-5xl"}
+            className={`${pathName === "/chat" ? "text-4xl" : "text-5xl"}
         `}
           >
             to

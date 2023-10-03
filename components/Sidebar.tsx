@@ -2,7 +2,7 @@
 
 import { Menu, X, MessageSquareDashed, Loader2 } from "lucide-react";
 import { useStore } from "@/app/store";
-import type { Conversation, UserPublicMetadata } from "@/app/types";
+import type { UserPublicMetadata } from "@/app/types";
 import PastConversation from "@/components/PastConversation";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -23,7 +23,9 @@ export default function Navigation() {
   const { user } = useUser();
   const [isLoaded, setIsLoaded] = useState(false);
   const userPublicMetadata = user?.publicMetadata as UserPublicMetadata;
-  const subscription = userPublicMetadata?.subscription;
+  const subscription = userPublicMetadata?.subscription
+    ? userPublicMetadata?.subscription
+    : "free";
 
   useEffect(() => {
     if (user) {

@@ -25,7 +25,7 @@ export default function QuestionAnimation() {
       >
         <p>
           Should I bet or check more often exploitatively vs a weak tight player
-          on 422r? SRP BU vs BB
+          on 422r?
         </p>
       </div>
       {response && (
@@ -40,7 +40,7 @@ export default function QuestionAnimation() {
                 "Weak-tight players tend to over-fold, especially when they're out of position. This behavior allows you to exploit them by betting aggressively and frequently with a wider range. This strategy will secure more pots for you uncontested and increase your overall winnings from the button versus big blind scenarios. Be aware though, this strategy could require adjustments if the weak-tight player changes their playing style.",
               ],
               autoStart: true,
-              delay: 10,
+              delay: 8,
               deleteSpeed: 99999999,
               loop: false,
               cursor: "",

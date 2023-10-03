@@ -14,7 +14,6 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import Link from "next/link";
-import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 
 export default function Profile() {
   const { user } = useUser();
@@ -27,9 +26,11 @@ export default function Profile() {
             <User color="white" size={25} />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mr-4 border border-white bg-black font-semibold text-white">
-            <DropdownMenuLabel className="p-2 text-sm font-semibold">
-              {user?.primaryEmailAddress?.emailAddress}
-            </DropdownMenuLabel>
+            <Link href="/profile">
+              <DropdownMenuItem className="cursor-pointer">
+                {user?.primaryEmailAddress?.emailAddress}
+              </DropdownMenuItem>
+            </Link>
             <Link href="/faq">
               <DropdownMenuItem className="cursor-pointer">
                 FAQ
