@@ -93,9 +93,8 @@ export default function Home() {
                 but answering why the solver does it.
               </span>{" "}
               Want to know if you should take one action over another based on
-              opponent tendancies? Get insight on these types of questions for{" "}
-              <span className="text-pio-green">a fraction of the price</span>{" "}
-              compared to coaching.
+              opponent tendancies? Get insight on these types of questions for
+              only <span className="text-pio-green">$10 a month</span>.
             </Balancer>
           </p>
 
