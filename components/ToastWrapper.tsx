@@ -3,11 +3,9 @@
 import { useEffect } from "react";
 import { Toaster } from "./ui/toaster";
 import { useToast } from "./ui/use-toast";
-import { usePathname } from "next/navigation";
 
 export default function ToastWrapper() {
   const { toast } = useToast();
-  const pathName = usePathname();
 
   useEffect(() => {
     toast({
@@ -17,5 +15,9 @@ export default function ToastWrapper() {
     });
   }, []);
 
-  return <div className="text-black">{pathName === "/" && <Toaster />}</div>;
+  return (
+    <div className="text-black">
+      <Toaster />
+    </div>
+  );
 }
