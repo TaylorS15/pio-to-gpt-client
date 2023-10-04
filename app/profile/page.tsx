@@ -15,8 +15,11 @@ export default function ProfilePage() {
     ? (user.publicMetadata as UserPublicMetadata)
     : null;
   const subscription = userPublicMetadata?.subscription
-    ? userPublicMetadata?.subscription
+    ? userPublicMetadata.subscription
     : "free";
+  const hasCancelled = userPublicMetadata?.hasCancelled
+    ? userPublicMetadata.hasCancelled
+    : false;
 
   const [confirmCancellation, setConfirmCancellation] = useState(false);
   const [isCancelling, setIsCancelling] = useState(false);
@@ -61,14 +64,17 @@ export default function ProfilePage() {
           <h1>
             Subscription: <span className="font-bold">{subscription}</span>
           </h1>
-          {!confirmCancellation && !isCancelling && subscription !== "free" && (
-            <button
-              className="w-max text-lg hover:underline"
-              onClick={() => setConfirmCancellation(true)}
-            >
-              Cancel Subscription
-            </button>
-          )}
+          {!hasCancelled &&
+            !confirmCancellation &&
+            !isCancelling &&
+            subscription !== "free" && (
+              <button
+                className="w-max text-lg hover:underline"
+                onClick={() => setConfirmCancellation(true)}
+              >
+                Cancel Subscription
+              </button>
+            )}
           {confirmCancellation && (
             <div className="flex flex-col gap-3">
               <p className="text-lg">
@@ -79,7 +85,7 @@ export default function ProfilePage() {
               <div className="flex gap-8">
                 <button
                   className="h-7 w-16 rounded-md bg-white text-sm text-black transition hover:bg-white/70"
-                  onClick={handleSubscriptionCancel}
+                  onClick={() => handleSubscriptionCancel()}
                 >
                   Yes
                 </button>
@@ -96,6 +102,12 @@ export default function ProfilePage() {
             <div className="w-min">
               <Loader2 className="mx-auto mt-4 animate-spin" size={25} />
             </div>
+          )}
+          {hasCancelled && (
+            <h1>
+              You have cancelled your subscription. You will still be able to
+              use GTOtoGPT until the end of your billing period.
+            </h1>
           )}
         </div>
       </div>

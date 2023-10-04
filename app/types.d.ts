@@ -2,6 +2,7 @@ export type UserPublicMetadata = {
   pastConversations: Conversation[];
   subscription: "free" | "pro" | "admin";
   lastQuestions: number[];
+  hasCancelled: boolean;
 };
 
 export type Question = {
