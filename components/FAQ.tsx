@@ -54,9 +54,8 @@ export default function FAQ() {
             abuse and we are looking to expand this over time.
             <br></br>
             <br></br>
-            There is also a conversation limit of{" "}
-            <span className="italic">5 questions and 5 responses per</span> to
-            prevent abuse and we are looking to expand this over time.
+            There is also a conversation length limit of{" "}
+            <span className="italic">5 questions and 5 responses</span>.
             <br></br>
             <br></br>
             This should be plenty for normal use and questions that come back as
@@ -166,7 +165,7 @@ export default function FAQ() {
           <AccordionContent className="text-lg text-white/80">
             You can cancel your subscription at any time and you will still be
             able to use the service until the end of your current billing
-            period. The link is in the footer of our site.
+            period.
           </AccordionContent>
         </AccordionItem>
       </Accordion>
