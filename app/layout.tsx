@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Montserrat } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${montserrat.className} bg-black text-white`}>
           {children}
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
