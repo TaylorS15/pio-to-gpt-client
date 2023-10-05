@@ -31,19 +31,12 @@ export default function Footer() {
           />
         </svg>
       </Link>
-      {/* <Dot size={35} /> */}
-      {isPro && (
-        <>
-          <Dot size={35} />
-          <Link
-            href="/profile"
-            className="text-base font-semibold text-white/70"
-          >
-            Cancel Subscription
-          </Link>
-        </>
-      )}
-      {/* <p className="text-base font-semibold text-white">Privacy Policy</p> */}
+      <Dot size={35} />
+      <Link href="/privacy-policy">
+        <p className="font-semibold text-white hover:underline">
+          Privacy Policy
+        </p>
+      </Link>
     </footer>
   );
 }
