@@ -60,8 +60,7 @@ export default function ChatBox() {
   const { user } = useUser();
   const { toast } = useToast();
   const [awaitingResponse, setAwaitingResponse] = useState(false);
-  const userPublicMetadata =
-    user?.publicMetadata as unknown as UserPublicMetadata;
+  const userPublicMetadata = user?.publicMetadata as UserPublicMetadata;
   const [subscription, setSubscription] = useState<"free" | "pro" | "admin">(
     "free",
   );
@@ -217,7 +216,7 @@ export default function ChatBox() {
         <div
           style={{ width: `${progressBar}%` }}
           className="h-[.15rem] rounded-md bg-gray-300 transition-all duration-1000"
-        ></div>
+        />
       </div>
       <Form {...form}>
         <form

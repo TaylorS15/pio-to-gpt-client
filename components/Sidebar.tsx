@@ -9,7 +9,7 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Link from "next/link";
 
-export default function Navigation() {
+export default function Sidebar() {
   const {
     navState,
     setNavState,
@@ -45,6 +45,27 @@ export default function Navigation() {
     }
   }, [user]);
 
+  function handleSelectNewChat() {
+    setNavState("CLOSED");
+
+    if (currentConversation) {
+      const isInPastConversations = pastConversations
+        ? pastConversations.findIndex(
+            (conversation) =>
+              conversation.created === currentConversation.created,
+          )
+        : -1;
+
+      if (isInPastConversations !== -1) {
+        updateConversation(currentConversation);
+      } else {
+        addConversation(currentConversation);
+      }
+    }
+
+    setConversation(null);
+  }
+
   return (
     <div className="absolute left-0 top-0 w-0">
       <button
@@ -71,26 +92,7 @@ export default function Navigation() {
         <div className="mx-auto mt-14 flex w-11/12 flex-grow select-none flex-col overflow-y-scroll lg:mt-4">
           <button
             className="text-md mb-2 flex h-12 w-3/4 items-center justify-between rounded-md border border-black bg-black p-2  transition hover:border-white"
-            onClick={() => {
-              setNavState("CLOSED");
-
-              if (currentConversation) {
-                const isInPastConversations = pastConversations
-                  ? pastConversations.findIndex(
-                      (conversation) =>
-                        conversation.created === currentConversation.created,
-                    )
-                  : -1;
-
-                if (isInPastConversations !== -1) {
-                  updateConversation(currentConversation);
-                } else {
-                  addConversation(currentConversation);
-                }
-              }
-
-              setConversation(null);
-            }}
+            onClick={handleSelectNewChat}
           >
             <p>New Chat</p>
             <MessageSquareDashed size={20} />

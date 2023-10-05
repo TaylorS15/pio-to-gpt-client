@@ -1,13 +1,13 @@
 import FAQ from "@/components/FAQ";
-import Profile from "@/components/Profile";
 import { CornerUpLeft } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
 
 export default function Faq() {
   return (
     <main className="relative flex min-h-screen flex-col gap-8 bg-black pt-24 text-white">
-      <Profile />
+      <Navigation />
 
       <div className="mx-auto w-full max-w-7xl">
         <Link

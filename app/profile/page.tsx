@@ -6,6 +6,7 @@ import { useUser } from "@clerk/nextjs";
 import { CornerUpLeft } from "lucide-react";
 import Link from "next/link";
 import { UserPublicMetadata } from "@/app/types";
+import Navigation from "@/components/Navigation";
 
 export default function ProfilePage() {
   const { user } = useUser();
@@ -18,7 +19,7 @@ export default function ProfilePage() {
 
   return (
     <main className="relative flex min-h-screen flex-col gap-8 bg-black px-6 pt-24 text-white md:px-0">
-      <Profile />
+      <Navigation />
 
       <div className="mx-auto w-full max-w-7xl">
         <Link
