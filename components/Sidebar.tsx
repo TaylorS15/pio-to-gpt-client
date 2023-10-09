@@ -115,7 +115,7 @@ export default function Sidebar() {
         {subscription === "free" && (
           <Link
             className="p-4"
-            href={`https://buy.stripe.com/test_3cs9DL9Ec89J7LiaEG?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
+            href={`https://buy.stripe.com/aEU9CG0bdefh0jSaEH?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
           >
             <button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
               Upgrade and get a free week!
