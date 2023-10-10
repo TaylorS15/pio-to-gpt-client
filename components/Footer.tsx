@@ -33,8 +33,14 @@ export default function Footer() {
       </Link>
       <Dot size={35} />
       <Link href="/privacy-policy">
-        <p className="font-semibold text-white hover:underline">
+        <p className="font-semibold text-white/70 hover:underline">
           Privacy Policy
+        </p>
+      </Link>
+      <Dot size={35} />
+      <Link href="/terms-and-conditions">
+        <p className="font-semibold text-white/70 hover:underline">
+          Terms and Conditions
         </p>
       </Link>
     </footer>
