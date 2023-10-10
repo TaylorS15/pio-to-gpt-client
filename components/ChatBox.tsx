@@ -72,11 +72,11 @@ export default function ChatBox() {
 
   useEffect(() => {
     if (user) {
-      if (userPublicMetadata?.subscription) {
-        setSubscription(userPublicMetadata?.subscription);
+      if (userPublicMetadata.subscription) {
+        setSubscription(userPublicMetadata.subscription);
       }
-      if (userPublicMetadata?.lastQuestions) {
-        setLastQuestions(userPublicMetadata?.lastQuestions);
+      if (userPublicMetadata.lastQuestions) {
+        setLastQuestions(userPublicMetadata.lastQuestions);
       }
     }
   }, [user, userPublicMetadata]);

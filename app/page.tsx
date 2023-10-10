@@ -1,4 +1,4 @@
-import { SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignUpButton } from "@clerk/nextjs";
 import Navigation from "@/components/Navigation";
 import Balancer from "react-wrap-balancer";
 import QuestionAnimation from "@/components/QuestionAnimation";
@@ -25,7 +25,7 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="my-auto h-[32rem] w-full rounded-md text-xl lg:mx-auto lg:w-3/4">
+        <div className="my-auto h-auto w-full rounded-md text-xl lg:mx-auto lg:w-3/4">
           <QuestionAnimation />
         </div>
 
@@ -50,39 +50,39 @@ export default function Home() {
         <div className="flex flex-col gap-16 text-left">
           <div className="flex gap-4">
             <Minus size={25} className="my-auto" />
-            <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
+            <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
               Access to the only chat bot built to answer poker questions on the
               market.
-            </h2>
+            </h3>
           </div>
 
           <div className="flex gap-4">
             <Minus size={25} className="my-auto" />
-            <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
+            <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
               Combines massive datasets of solver solutions and general poker
               knowledge with GPT-4.
-            </h2>
+            </h3>
           </div>
 
           <div className="flex gap-4">
             <Minus size={25} className="my-auto" />
-            <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
+            <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
               More accurate reasoning and higher quality responses to poker
               strategy and theory questions than base GPT-4.
-            </h2>
+            </h3>
           </div>
 
           <div className="flex gap-4">
             <Minus size={25} className="my-auto" />
-            <h2 className="w-4/5 text-2xl font-medium md:text-3xl">
+            <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
               Available on Desktop and Mobile browsers.
-            </h2>
+            </h3>
           </div>
 
-          <h2 className="w-4/5 text-4xl font-semibold md:text-5xl">
+          <h3 className="w-4/5 text-4xl font-semibold md:text-5xl">
             For only <span className="line-through opacity-60">$20</span>{" "}
             <span className="text-pio-green">$10</span> a month.
-          </h2>
+          </h3>
         </div>
 
         <div className="flex flex-col gap-8">
@@ -94,7 +94,8 @@ export default function Home() {
               </span>{" "}
               Want to know if you should take one action over another based on
               opponent tendancies? Get insight on these types of questions for
-              only <span className="text-pio-green">$10 a month</span>.
+              only <span className="line-through opacity-60">$20</span>{" "}
+              <span className="text-pio-green">$10 a month</span>.
             </Balancer>
           </p>
 
