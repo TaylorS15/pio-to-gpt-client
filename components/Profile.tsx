@@ -1,4 +1,5 @@
 "use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,9 +15,11 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const { user } = useUser();
+  const router = useRouter();
 
   return (
     <div className="absolute right-4 top-4">
@@ -25,18 +28,21 @@ export default function Profile() {
           <DropdownMenuTrigger>
             <User color="white" size={25} />
           </DropdownMenuTrigger>
+
           <DropdownMenuContent className="mr-4 border border-white bg-black font-semibold text-white">
             <Link href="/profile">
               <DropdownMenuItem className="cursor-pointer">
                 {user?.primaryEmailAddress?.emailAddress}
               </DropdownMenuItem>
             </Link>
+
             <Link href="/faq">
               <DropdownMenuItem className="cursor-pointer">
                 FAQ
               </DropdownMenuItem>
             </Link>
-            <SignOutButton>
+
+            <SignOutButton signOutCallback={() => router.push("/")}>
               <DropdownMenuItem className="cursor-pointer">
                 Sign Out
               </DropdownMenuItem>
@@ -50,6 +56,7 @@ export default function Profile() {
           <DropdownMenuTrigger>
             <User color="white" size={25} />
           </DropdownMenuTrigger>
+
           <DropdownMenuContent className="mr-4 border border-white bg-black font-semibold text-white">
             <SignInButton>
               <DropdownMenuItem className="cursor-pointer">
