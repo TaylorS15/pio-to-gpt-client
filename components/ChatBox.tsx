@@ -23,7 +23,7 @@ import { useWindowResize } from "@/app/hooks";
 import { useUser } from "@clerk/nextjs";
 import { useToast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UserPublicMetadata } from "@/app/types";
 import { io } from "socket.io-client";
 
@@ -46,6 +46,8 @@ export default function ChatBox() {
     updateConversation,
     currentConversation,
     setChatBoxHeight,
+    setTextareaHeight,
+    textareaHeight,
   } = useStore();
   const { elementWidth, leftMargin } = useWindowResize();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -69,6 +71,7 @@ export default function ChatBox() {
    */
   const [lastQuestions, setLastQuestions] = useState<number[]>([]);
   const [progressBar, setProgressBar] = useState(0);
+  const chatboxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (user) {
@@ -82,8 +85,9 @@ export default function ChatBox() {
   }, [user, userPublicMetadata]);
 
   useEffect(() => {
-    const chatBox = document.querySelector(".chat-box");
-    setChatBoxHeight(chatBox?.clientHeight || 0);
+    if (chatboxRef.current) {
+      setChatBoxHeight(chatboxRef.current.clientHeight);
+    }
   }, []);
 
   function submitQuestion(values: z.infer<typeof formSchema>) {
@@ -98,6 +102,9 @@ export default function ChatBox() {
       response: null,
       created: date,
     });
+
+    const fontSize = window.getComputedStyle(document.documentElement).fontSize;
+    setTextareaHeight(parseInt(fontSize) * 4);
 
     const updatedConversation = useStore.getState().currentConversation;
 
@@ -209,8 +216,9 @@ export default function ChatBox() {
 
   return (
     <div
-      className="chat-box mx-auto mt-auto flex max-w-5xl flex-col gap-4 lg:mx-0"
+      className="mx-auto mt-auto flex max-w-5xl flex-col gap-4 lg:mx-0"
       style={{ width: elementWidth, marginLeft: leftMargin }}
+      ref={chatboxRef}
     >
       <div className="mx-auto w-full max-w-3xl">
         <div
@@ -233,8 +241,18 @@ export default function ChatBox() {
                   <FormControl>
                     <Textarea
                       {...field}
+                      style={{ height: `${textareaHeight}px` }}
+                      onInput={(e) => {
+                        const target = e.target as HTMLTextAreaElement;
+                        target.style.height = "3rem";
+                        target.style.height = `${Math.min(
+                          target.scrollHeight,
+                          160,
+                        )}px`;
+                        setTextareaHeight(target.scrollHeight);
+                      }}
                       autoComplete="off"
-                      className="chat-box text-md w-full resize-none bg-black"
+                      className="text-md w-full resize-none bg-black"
                     />
                   </FormControl>
                 </FormItem>
