@@ -94,7 +94,9 @@ export default function FAQ() {
             out a simplified version with only the relevant players and actions.
             You can ask about general poker theory as well! It is preferable to
             use the Dynamic and Formation selection boxes below the chat box to
-            give more information regarding your question.
+            give more information regarding your question. Also, responses are
+            generally more accurate in single question conversations rather than
+            longer mutli-question conversations.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="seven">

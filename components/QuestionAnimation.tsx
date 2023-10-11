@@ -32,6 +32,10 @@ export default function QuestionAnimation() {
         "How should I change my play in a home game where the rake is much higher?",
         "In a home game with a higher rake, you should generally adjust your strategy to play tighter. This is because higher rakes diminish the value of marginal hands, making it less profitable to play a wide range of hands. You should be more selective with your starting hands, preferring stronger hands that can more reliably win pots outright and avoid paying excessive rakes.",
       ],
+      [
+        "Should I call or fold a hand like KJo as the Button vs BBs checkraise on 886r? The solver mixes but Im not sure what I should do vs a fish",
+        "Against a fishy player who is likely to play too many hands preflop and too passively postflop, it might be a good idea to call with KJo in this scenario. Fishy players tend to have wider ranges, and KJo may still be ahead of a significant portion of their range, especially on a paired, relatively low board like 886r.<br><br>However, you also need to consider future streets. Remember, fishy players tend to play passively, so a check-raise could indicate a strong hand. If you believe they are capable of bluffing or overvaluing weaker hands here, you can make the call. But if they continue to show aggression on the turn and river, you should be willing to reconsider your stance. Therefore, the decision to call or fold will depend on your reads of this particular players tendencies and your comfort navigating later streets.",
+      ],
     ];
     const randomIndex = Math.floor(Math.random() * conversations.length);
     const [question, response] = conversations[randomIndex];
