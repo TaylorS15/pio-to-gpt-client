@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="mx-auto mt-auto flex h-16 w-max max-w-7xl items-center justify-center gap-4 text-left">
+    <footer className="mx-auto mt-auto flex h-16 max-w-7xl flex-wrap items-center justify-center gap-4 text-left">
       <Link
         href="https://discord.gg/ZunqSuUJdH"
         rel="noopener noreferrer"
