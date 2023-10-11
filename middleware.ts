@@ -7,6 +7,7 @@ export default authMiddleware({
     "/privacy-policy",
     "/terms-and-conditions",
   ],
+  publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
 });
 
 export const config = {
