@@ -32,7 +32,7 @@ export default function Sidebar() {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/conversation/request`, {
           headers: {
-            Authorization: `Bearer ${user.id}`,
+            userId: user.id,
           },
         })
         .then((data) => {

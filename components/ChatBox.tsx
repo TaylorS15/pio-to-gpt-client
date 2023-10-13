@@ -111,7 +111,7 @@ export default function ChatBox() {
     const socket = io(process.env.NEXT_PUBLIC_API_URL || "", {
       autoConnect: false,
       extraHeaders: {
-        Authorization: `Bearer ${user?.id}`,
+        userId: user?.id ?? "",
       },
     });
 
