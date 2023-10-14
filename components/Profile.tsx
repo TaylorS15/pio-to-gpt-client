@@ -42,7 +42,7 @@ export default function Profile() {
               </DropdownMenuItem>
             </Link>
 
-            <SignOutButton>
+            <SignOutButton signOutCallback={() => router.push("/")}>
               <DropdownMenuItem className="cursor-pointer">
                 Sign Out
               </DropdownMenuItem>
