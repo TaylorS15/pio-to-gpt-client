@@ -28,7 +28,7 @@ export default function Sidebar() {
     : "free";
 
   useEffect(() => {
-    if (user && user.id) {
+    if (user) {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/conversation/request`, {
           headers: {
