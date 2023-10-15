@@ -31,7 +31,7 @@ export default function PastConversation({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/conversation/delete`,
       headers: {
-        userId: user?.id,
+        userid: user?.id,
       },
       data: {
         userId: user?.id,
