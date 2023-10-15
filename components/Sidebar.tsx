@@ -28,19 +28,21 @@ export default function Sidebar() {
     : "free";
 
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/conversation/request`, {
-        headers: {
-          userid: user?.id,
-        },
-      })
-      .then((data) => {
-        setPastConversations(data.data.pastConversations || null);
-        setIsLoaded(true);
-      })
-      .catch((error) => {
-        setIsLoaded(true);
-      });
+    if (user && user.id) {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/conversation/request`, {
+          headers: {
+            userid: user.id,
+          },
+        })
+        .then((data) => {
+          setPastConversations(data.data.pastConversations || null);
+          setIsLoaded(true);
+        })
+        .catch((error) => {
+          setIsLoaded(true);
+        });
+    }
   }, [user]);
 
   function handleSelectNewChat() {
