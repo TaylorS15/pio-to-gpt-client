@@ -113,6 +113,7 @@ export default function ChatBox() {
       extraHeaders: {
         userId: user?.id ?? "",
       },
+      reconnectionAttempts: 3,
     });
 
     socket.connect();
