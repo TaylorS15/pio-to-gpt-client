@@ -11,10 +11,10 @@ export default function Navigation() {
   return (
     <nav>
       {pathName === "/chat" && <Sidebar />}
-      <Link href="/" className="absolute right-36 top-4">
+      <Link href="/" className="absolute right-36 top-4 hover:underline">
         <HomeIcon className="h-6 w-6" />
       </Link>
-      <Link href="/chat" className="absolute right-20 top-4">
+      <Link href="/chat" className="absolute right-20 top-4 hover:underline">
         <MessageSquare className="h-6 w-6" />
       </Link>
       <Profile />

@@ -25,7 +25,7 @@ export default function Profile() {
     <div className="absolute right-4 top-4">
       <SignedIn>
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className="hover:underline">
             <User color="white" size={25} />
           </DropdownMenuTrigger>
 
