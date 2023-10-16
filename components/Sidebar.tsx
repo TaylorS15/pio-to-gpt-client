@@ -117,8 +117,8 @@ export default function Sidebar() {
             className="p-4"
             href={`https://buy.stripe.com/3csbKOf674EH1nWbIK?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
           >
-            <button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-white hover:text-black">
-              Upgrade and get a free week!
+            <button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-pio-green hover:text-black">
+              Upgrade
             </button>
           </Link>
         )}
