@@ -11,7 +11,7 @@ export default function ToastWrapper() {
     toast({
       title: "We are currently in BETA! (50% OFF!)",
       description:
-        "During beta testing, available simulation data will be limited to Button vs. Big Blind SRP's. This will be expanded soon after our beta launch. GtG will still be useful for general poker questions and other spots with limited data!",
+        "During beta testing, available simulation data will be limited to certain spots and formations. This will be expanded throughout beta. GtG will still be useful for general poker questions and other spots even with limited data!",
     });
   }, []);
 
