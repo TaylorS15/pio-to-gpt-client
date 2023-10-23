@@ -115,7 +115,7 @@ export default function Sidebar() {
         {subscription === "free" && (
           <Link
             className="p-4"
-            href={`https://buy.stripe.com/3csbKOf674EH1nWbIK?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
+            href={`https://buy.stripe.com/9AQ16a8HJ5IL8QodQU?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
           >
             <button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-pio-green hover:text-black">
               Upgrade

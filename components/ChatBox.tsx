@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "./ui/textarea";
 import { useWindowResize } from "@/app/hooks";
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { useToast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
 import { useEffect, useRef, useState } from "react";
@@ -60,6 +60,7 @@ export default function ChatBox() {
     },
   });
   const { user } = useUser();
+  const { getToken } = useAuth();
   const { toast } = useToast();
   const [awaitingResponse, setAwaitingResponse] = useState(false);
   const userPublicMetadata = user?.publicMetadata as UserPublicMetadata;
@@ -288,7 +289,7 @@ export default function ChatBox() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="SRP">SRP</SelectItem>
-                          {/* <SelectItem value="3BP">3BP</SelectItem> */}
+                          <SelectItem value="3BP">3BP</SelectItem>
                         </SelectContent>
                       </Select>
                     </FormControl>
@@ -314,10 +315,10 @@ export default function ChatBox() {
                         {form.getValues("dynamic") === "SRP" && (
                           <SelectContent>
                             <SelectItem value="BUvBB">BU vs BB</SelectItem>
-                            {/* <SelectItem value="COvBB">CO vs BB</SelectItem>
+                            <SelectItem value="COvBB">CO vs BB</SelectItem>
                             <SelectItem value="MPvBB">MP vs BB</SelectItem>
                             <SelectItem value="UTGvBB">UTG vs BB</SelectItem>
-                            <SelectItem value="SBvBB">SB vs BB</SelectItem> */}
+                            <SelectItem value="SBvBB">SB vs BB</SelectItem>
                           </SelectContent>
                         )}
                         {form.getValues("dynamic") === "3BP" && (

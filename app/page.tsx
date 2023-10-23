@@ -39,7 +39,7 @@ export default function Home() {
               <span className="text-2xl">to</span>GPT can do
             </Balancer>
           </h2>
-          <SignUpButton>
+          <SignUpButton afterSignInUrl="/chat" afterSignUpUrl="/chat">
             <button className="mt-8 h-12 w-36 rounded-md bg-white p-2 text-lg text-black transition hover:bg-gray-200">
               Sign Up
             </button>
@@ -80,8 +80,7 @@ export default function Home() {
           </div>
 
           <h3 className="w-4/5 text-4xl font-semibold md:text-5xl">
-            For only <span className="line-through opacity-60">$20</span>{" "}
-            <span className="text-pio-green">$10</span> a month.
+            For only <span className="text-pio-green">$15</span> a month.
           </h3>
         </div>
 
@@ -94,12 +93,11 @@ export default function Home() {
               </span>{" "}
               Want to know if you should take one action over another based on
               opponent tendancies? Get insight on these types of questions for
-              only <span className="line-through opacity-60">$20</span>{" "}
-              <span className="text-pio-green">$10 a month</span>.
+              only <span className="text-pio-green">$15 a month</span>.
             </Balancer>
           </p>
 
-          <SignUpButton>
+          <SignUpButton afterSignInUrl="/chat" afterSignUpUrl="/chat">
             <button className="mx-auto mt-10 flex h-20 w-full max-w-sm items-center justify-center gap-8 rounded-md border border-white bg-black text-2xl font-medium transition hover:bg-pio-green/80">
               <h2>Sign Up Now</h2>
               <CornerUpRight size={25} />
@@ -111,7 +109,7 @@ export default function Home() {
           <FAQ />
         </div>
 
-        <ToastWrapper />
+        {/* <ToastWrapper /> */}
 
         <Footer />
       </div>
