@@ -69,7 +69,7 @@ export default function Chat() {
               </div>
             );
           })}
-          <div className="h-12 w-full" />
+          <div className="md:h-12 w-full" />
         </div>
         <div className="absolute bottom-0 z-10 h-10 w-full bg-gradient-to-t from-black to-black/0" />
       </div>
