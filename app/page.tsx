@@ -32,8 +32,7 @@ export default function Home() {
         <div>
           <h2 className="mx-auto w-full text-4xl font-medium text-white lg:w-2/3">
             <Balancer>
-              Sign up now and get a free week to see what{" "}
-              <span className="text-pio-red">G</span>
+              Sign up now and see what <span className="text-pio-red">G</span>
               <span className="text-pio-green">T</span>
               <span className="text-pio-blue">O</span>
               <span className="text-2xl">to</span>GPT can do

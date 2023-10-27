@@ -39,6 +39,7 @@ export default function Admin() {
               })
                 .then((res) => {
                   const zip = new JSZip();
+                  let allQuestions: string[] = [];
                   res.data.forEach(
                     (log: {
                       _id: string;
@@ -46,13 +47,20 @@ export default function Admin() {
                       controller: string;
                     }) => {
                       const questions: string[] = log.trainingData.map(
-                        (object: { role: string; content: string }) => {
-                          return object.content;
+                        (object: { role: string; content: string }, index) => {
+                          if (index === log.trainingData.length - 1) {
+                            return object.content;
+                          } else {
+                            return "";
+                          }
                         },
                       );
-                      zip.file(log.controller, questions.join("\n"));
+
+                      allQuestions.push(questions.join("\n").trim());
                     },
                   );
+
+                  zip.file("getPokerKnowledgeLines.txt", allQuestions.join());
 
                   zip.generateAsync({ type: "blob" }).then((blob) => {
                     const href = URL.createObjectURL(blob);
