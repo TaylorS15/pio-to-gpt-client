@@ -22,7 +22,7 @@ export default function Admin() {
         <h1 className="text-2xl">Back</h1>
       </Link>
 
-      {/* {isAdmin && (
+      {isAdmin && (
         <div className="flex w-max flex-col gap-4">
           <button
             className="hover:underline"
@@ -31,7 +31,7 @@ export default function Admin() {
                 method: "post",
                 url: `${process.env.NEXT_PUBLIC_API_URL}/logs/request`,
                 headers: {
-                  Authorization: `Bearer ${user?.id}`,
+                  userid: user?.id,
                 },
                 data: {
                   userId: user?.id,
@@ -39,9 +39,20 @@ export default function Admin() {
               })
                 .then((res) => {
                   const zip = new JSZip();
-                  res.data.forEach((log: { name: string; data: string }) => {
-                    zip.file(log.name, log.data);
-                  });
+                  res.data.forEach(
+                    (log: {
+                      _id: string;
+                      trainingData: { content: string; role: string }[];
+                      controller: string;
+                    }) => {
+                      const questions: string[] = log.trainingData.map(
+                        (object: { role: string; content: string }) => {
+                          return object.content;
+                        },
+                      );
+                      zip.file(log.controller, questions.join("\n"));
+                    },
+                  );
 
                   zip.generateAsync({ type: "blob" }).then((blob) => {
                     const href = URL.createObjectURL(blob);
@@ -55,7 +66,7 @@ export default function Admin() {
                 .catch();
             }}
           >
-            PLEASE ASK BEFORE REQUESTING: request logs
+            Request getPokerKnowledgeLines
           </button>
           <button
             className="w-max hover:underline"
@@ -67,7 +78,7 @@ export default function Admin() {
                   method: "post",
                   url: `${process.env.NEXT_PUBLIC_API_URL}/logs/delete`,
                   headers: {
-                    Authorization: `Bearer ${user?.id}`,
+                    userid: `Bearer ${user?.id}`,
                   },
                   data: {
                     userId: user?.id,
@@ -86,7 +97,7 @@ export default function Admin() {
               : "DO NOT USE: delete logs"}
           </button>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
