@@ -32,6 +32,7 @@ export default function Chat() {
     };
   }, []);
 
+  //We must manually change the height of the chat window as the textarea height changes
   useEffect(() => {
     setChatHeight(
       windowHeight - chatBoxHeight - 48 - headerHeight - textareaHeight - 75,
@@ -69,7 +70,7 @@ export default function Chat() {
               </div>
             );
           })}
-          <div className="md:h-12 w-full" />
+          <div className="w-full md:h-12" />
         </div>
         <div className="absolute bottom-0 z-10 h-10 w-full bg-gradient-to-t from-black to-black/0" />
       </div>

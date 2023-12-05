@@ -254,7 +254,7 @@ export default function ChatBox() {
                         setTextareaHeight(target.scrollHeight);
                       }}
                       autoComplete="off"
-                      className="text-md w-full resize-none bg-black"
+                      className="text-md max-h-48 w-full resize-none bg-black"
                     />
                   </FormControl>
                 </FormItem>

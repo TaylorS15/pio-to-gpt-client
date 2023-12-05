@@ -43,7 +43,11 @@ export default function Home() {
               Sign Up
             </button>
           </SignUpButton>
-          <ChevronDown className="mx-auto mt-8 text-white/20" size={50} />
+          <h2 className="mx-auto mt-6 w-full text-lg text-white lg:w-2/3">
+            Get one free question with a new account. No payment method
+            required.
+          </h2>
+          <ChevronDown className="mx-auto mt-6 text-white/20" size={50} />
         </div>
 
         <div className="flex flex-col gap-16 text-left">
