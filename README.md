@@ -1,3 +1,3 @@
 # pio-to-gpt-client
 
-Frontend for [GTOtoGPT.com](https://gtotogpt,com)
+Frontend for [GTOtoGPT.com](https://gtotogpt.com)
