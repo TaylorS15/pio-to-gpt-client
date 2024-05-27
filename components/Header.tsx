@@ -16,28 +16,13 @@ export default function Header() {
   }, []);
 
   return (
-    <div
-      style={{
-        width: `${pathName === "/chat" ? elementWidth : "auto"}`,
-        marginLeft: `${pathName === "/chat" ? leftMargin : "none"}`,
-      }}
-      className="header"
-    >
-      <h1
-        className={`${
-          pathName === "/chat" ? "text-5xl" : "text-7xl"
-        } w-full text-center font-semibold`}
-      >
+    <div className="header ml-0 w-auto">
+      <h1 className={`w-full text-center text-6xl font-semibold`}>
         <span className="text-pio-red">G</span>
         <span className="text-pio-green">T</span>
         <span className="text-pio-blue">O</span>
         <span className="bg-gradient-to-br from-white to-slate-300 bg-clip-text text-transparent">
-          <span
-            className={`${pathName === "/chat" ? "text-4xl" : "text-5xl"}
-        `}
-          >
-            to
-          </span>
+          <span className="text-5xl">to</span>
           GPT
         </span>
       </h1>

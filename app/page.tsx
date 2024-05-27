@@ -10,17 +10,17 @@ import ToastWrapper from "@/components/ToastWrapper";
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-[100dvh] w-full flex-col items-center gap-8 bg-black p-6 text-white">
+    <main className="relative flex max-h-[100dvh] min-h-[100vh] w-full flex-col items-center gap-8 bg-black p-6 text-white">
       <Navigation />
 
       <div className="flex w-full flex-col gap-10 text-center lg:max-w-6xl lg:gap-32">
-        <div className="mt-12 flex flex-col gap-16 md:gap-8">
+        <div className="mt-12 flex flex-col gap-8 md:gap-8">
           <Header />
 
           <h2 className="mx-auto max-w-3xl bg-gradient-to-br from-white to-slate-400 bg-clip-text text-2xl font-semibold text-transparent md:text-4xl">
             <Balancer>
               Supercharge your poker learning by bringing solver solutions and
-              GPT-4 together.
+              GPT-4o together.
             </Balancer>
           </h2>
         </div>
@@ -29,7 +29,7 @@ export default function Home() {
           <QuestionAnimation />
         </div>
 
-        <div>
+        <div className="mt-16">
           <h2 className="mx-auto w-full text-4xl font-medium text-white lg:w-2/3">
             <Balancer>
               Sign up now and see what <span className="text-pio-red">G</span>
@@ -38,7 +38,7 @@ export default function Home() {
               <span className="text-2xl">to</span>GPT can do
             </Balancer>
           </h2>
-          <SignUpButton afterSignInUrl="/chat" afterSignUpUrl="/chat">
+          <SignUpButton signInFallbackRedirectUrl="/chat">
             <button className="mt-8 h-12 w-36 rounded-md bg-white p-2 text-lg text-black transition hover:bg-gray-200">
               Sign Up
             </button>
@@ -63,7 +63,7 @@ export default function Home() {
             <Minus size={25} className="my-auto" />
             <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
               Combines massive datasets of solver solutions and general poker
-              knowledge with GPT-4.
+              knowledge with GPT-4o.
             </h3>
           </div>
 
@@ -71,7 +71,7 @@ export default function Home() {
             <Minus size={25} className="my-auto" />
             <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
               More accurate reasoning and higher quality responses to poker
-              strategy and theory questions than base GPT-4.
+              strategy and theory questions than base GPT-4o.
             </h3>
           </div>
 
@@ -87,7 +87,7 @@ export default function Home() {
           </h3>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="my-24 flex flex-col gap-8">
           <p className="text-4xl font-medium">
             <Balancer>
               Speed up your learning by not just asking what a solver would do{" "}
@@ -100,7 +100,7 @@ export default function Home() {
             </Balancer>
           </p>
 
-          <SignUpButton afterSignInUrl="/chat" afterSignUpUrl="/chat">
+          <SignUpButton signInFallbackRedirectUrl="/chat">
             <button className="mx-auto mt-10 flex h-20 w-full max-w-sm items-center justify-center gap-8 rounded-md border border-white bg-black text-2xl font-medium transition hover:bg-pio-green/80">
               <h2>Sign Up Now</h2>
               <CornerUpRight size={25} />

@@ -73,15 +73,6 @@ export default function FAQ() {
             No user data is ever sold to or shared with third parties.
           </AccordionContent>
         </AccordionItem>
-        {/* <AccordionItem value="five">
-          <AccordionTrigger className="text-left">
-            Should I give feedback to responses?
-          </AccordionTrigger>
-          <AccordionContent className="text-lg text-white/80">
-            Yes! Giving positive or negative feedback to responses will
-            significantly improve the quality of GTOtoGPT responses over time.
-          </AccordionContent>
-        </AccordionItem> */}
         <AccordionItem value="six">
           <AccordionTrigger className="text-left">
             How do I ask a good question?
@@ -94,9 +85,7 @@ export default function FAQ() {
             out a simplified version with only the relevant players and actions.
             You can ask about general poker theory as well! It is preferable to
             use the Dynamic and Formation selection boxes below the chat box to
-            give more information regarding your question. Also, responses are
-            generally more accurate in single question conversations rather than
-            longer mutli-question conversations.
+            give more information regarding your question.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="seven">
@@ -139,27 +128,6 @@ export default function FAQ() {
             cash. Other games and formats are planned for the future.
           </AccordionContent>
         </AccordionItem>
-        {/* <AccordionItem value="ten">
-          <AccordionTrigger className="text-left">
-            What spots are supported?
-          </AccordionTrigger>
-          <AccordionContent className="text-lg text-white/80">
-            There is currently heavy support for:
-            <ul className="">
-              <li>- SRP IP PFR and Blind vs Blind</li>
-              <li>- 3BP IP PFR</li>
-              <li>- 3BP OOP PFR</li>
-            </ul>
-            Moderate support for:
-            <ul className="">
-              <li>- Preflop</li>
-              <li>- Cold call pots</li>
-              <li>- Multiway pots</li>
-              <li>- 5BP pots</li>
-              <li>- 4BP pots</li>
-            </ul>
-          </AccordionContent>
-        </AccordionItem> */}
         <AccordionItem value="eleven">
           <AccordionTrigger className="text-left">
             Can I cancel my subscription?

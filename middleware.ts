@@ -1,13 +1,13 @@
-import { authMiddleware } from "@clerk/nextjs";
-export default authMiddleware({
-  publicRoutes: [
-    "/",
-    "/faq",
-    "/404",
-    "/privacy-policy",
-    "/terms-and-conditions",
-  ],
-  publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+
+const isProtectedRoute = createRouteMatcher([
+  "/chat(.*)",
+  "/admin(.*)",
+  "/profile(.*)",
+]);
+
+export default clerkMiddleware((auth, req) => {
+  if (isProtectedRoute(req)) auth().protect();
 });
 
 export const config = {
