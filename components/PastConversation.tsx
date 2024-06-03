@@ -57,8 +57,6 @@ export default function PastConversation({
   }
 
   function handleConversationClick() {
-    setNavState("CLOSED");
-
     if (!currentConversation) {
       setConversation(conversation);
     }
