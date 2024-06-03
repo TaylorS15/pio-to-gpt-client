@@ -248,6 +248,10 @@ export default function ChatBox() {
                         target.style.height = "42px";
                         target.style.height = `${target.scrollHeight + 2}px`;
                         setTextareaHeight(target.scrollHeight);
+
+                        if (target.textLength === 0) {
+                          form.reset();
+                        }
                       }}
                       autoComplete="off"
                       className="text-md max-h-[160px] w-full resize-none bg-black focus:outline-none"
@@ -319,12 +323,6 @@ export default function ChatBox() {
                         )}
                         {form.getValues("dynamic") === "3BP" && (
                           <SelectContent>
-                            <SelectItem value="MPvUTG">MP vs UTG</SelectItem>
-                            <SelectItem value="COvUTG">CO vs UTG</SelectItem>
-                            <SelectItem value="COvMP">CO vs MP</SelectItem>
-                            <SelectItem value="BUvUTG">BU vs UTG</SelectItem>
-                            <SelectItem value="BUvMP">BU vs MP</SelectItem>
-                            <SelectItem value="BUvCO">BU vs CO</SelectItem>
                             <SelectItem value="SBvUTG">SB vs UTG</SelectItem>
                             <SelectItem value="SBvMP">SB vs MP</SelectItem>
                             <SelectItem value="SBvCO">SB vs CO</SelectItem>
