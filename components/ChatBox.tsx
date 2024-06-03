@@ -243,6 +243,7 @@ export default function ChatBox() {
                     <Textarea
                       {...field}
                       style={{ height: `${textareaHeight}px` }}
+                      maxLength={300}
                       onInput={(e) => {
                         const target = e.target as HTMLTextAreaElement;
                         target.style.height = "42px";
