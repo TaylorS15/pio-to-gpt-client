@@ -10,14 +10,14 @@ import ToastWrapper from "@/components/ToastWrapper";
 
 export default function Home() {
   return (
-    <main className="relative flex max-h-[100dvh] min-h-[100vh] w-full flex-col items-center gap-8 bg-black p-6 text-white">
+    <main className="relative flex max-h-[100dvh] min-h-[100vh] w-full flex-col items-center gap-8 bg-gradient-to-b from-zinc-800 to-black p-6 text-white">
       <Navigation />
 
       <div className="flex w-full flex-col gap-10 text-center lg:max-w-6xl lg:gap-32">
         <div className="mt-12 flex flex-col gap-8 md:gap-8">
           <Header />
 
-          <h2 className="mx-auto max-w-3xl bg-gradient-to-br from-white to-slate-400 bg-clip-text text-2xl font-semibold text-transparent md:text-4xl">
+          <h2 className="mx-auto max-w-3xl bg-gradient-to-br from-white to-slate-400 bg-clip-text text-2xl font-semibold text-transparent md:text-3xl">
             <Balancer>
               Supercharge your poker learning by bringing solver solutions and
               GPT-4o together.
@@ -54,8 +54,8 @@ export default function Home() {
           <div className="flex gap-4">
             <Minus size={25} className="my-auto" />
             <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
-              Access to the only chat bot built to answer poker questions on the
-              market.
+              Access to the most accurate and affordable chat bot built to
+              answer poker questions on the market.
             </h3>
           </div>
 

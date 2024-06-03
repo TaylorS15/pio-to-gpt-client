@@ -26,7 +26,7 @@ export const useStore = create<AppState>()((set) => ({
   pastConversations: null,
   chatBoxHeight: 0,
   headerHeight: 0,
-  textareaHeight: 48,
+  textareaHeight: 42,
   setNavState: (navState) => set(() => ({ navState })),
   setConversation: (currentConversation) =>
     set(() => ({ currentConversation })),

@@ -60,7 +60,6 @@ export default function ChatBox() {
     },
   });
   const { user } = useUser();
-  const { getToken } = useAuth();
   const { toast } = useToast();
   const [awaitingResponse, setAwaitingResponse] = useState(false);
   const userPublicMetadata = user?.publicMetadata as UserPublicMetadata;
@@ -105,7 +104,7 @@ export default function ChatBox() {
     });
 
     const fontSize = window.getComputedStyle(document.documentElement).fontSize;
-    setTextareaHeight(parseInt(fontSize) * 4);
+    setTextareaHeight(42);
 
     const updatedConversation = useStore.getState().currentConversation;
 
@@ -238,23 +237,20 @@ export default function ChatBox() {
               control={form.control}
               name="question"
               render={({ field }) => (
-                <FormItem className="flex-grow">
-                  <FormMessage />
+                <FormItem className="relative flex-grow">
+                  <FormMessage className="absolute -top-7" />
                   <FormControl>
                     <Textarea
                       {...field}
                       style={{ height: `${textareaHeight}px` }}
                       onInput={(e) => {
                         const target = e.target as HTMLTextAreaElement;
-                        target.style.height = "3rem";
-                        target.style.height = `${Math.min(
-                          target.scrollHeight,
-                          160,
-                        )}px`;
+                        target.style.height = "42px";
+                        target.style.height = `${target.scrollHeight + 2}px`;
                         setTextareaHeight(target.scrollHeight);
                       }}
                       autoComplete="off"
-                      className="text-md max-h-48 w-full resize-none bg-black"
+                      className="text-md max-h-[160px] w-full resize-none bg-black focus:outline-none"
                     />
                   </FormControl>
                 </FormItem>
@@ -266,7 +262,7 @@ export default function ChatBox() {
                 awaitingResponse
                   ? "bg-white/50 hover:bg-white/50"
                   : "bg-white hover:bg-white/90"
-              } mt-auto h-12 w-24 select-none rounded-md font-medium text-black transition `}
+              } mb-2 mt-auto h-10 w-16 select-none rounded-md font-medium text-black transition`}
               disabled={awaitingResponse}
             >
               Send

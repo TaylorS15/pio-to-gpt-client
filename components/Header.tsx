@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <div className="header ml-0 w-auto">
-      <h1 className={`w-full text-center text-6xl font-semibold`}>
+      <h1 className={`w-full text-center text-7xl font-semibold`}>
         <span className="text-pio-red">G</span>
         <span className="text-pio-green">T</span>
         <span className="text-pio-blue">O</span>
