@@ -1,6 +1,5 @@
 import Chat from "@/components/Chat";
 import ChatBox from "@/components/ChatBox";
-import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 
 export default function ChatPage() {
