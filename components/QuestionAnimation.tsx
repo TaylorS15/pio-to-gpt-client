@@ -36,6 +36,10 @@ export default function QuestionAnimation() {
         "Should I call or fold a hand like KJo as the Button vs BBs checkraise on 886r? The solver mixes but Im not sure what I should do vs a fish",
         "Against a fishy player who is likely to play too many hands preflop and too passively postflop, it might be a good idea to call with KJo in this scenario. Fishy players tend to have wider ranges, and KJo may still be ahead of a significant portion of their range, especially on a paired, relatively low board like 886r.<br><br>However, you also need to consider future streets. Remember, fishy players tend to play passively, so a check-raise could indicate a strong hand. If you believe they are capable of bluffing or overvaluing weaker hands here, you can make the call. But if they continue to show aggression on the turn and river, you should be willing to reconsider your stance. Therefore, the decision to call or fold will depend on your reads of this particular players tendencies and your comfort navigating later streets.",
       ],
+      [
+        "Should I cold call or 3 bet KQs IP from the CO vs an UTG raiser",
+        "With KQs in the Cutoff (CO) versus an Under the Gun (UTG) raiser, you generally have two viable options: cold calling or 3-betting. The optimal choice depends on several factors, including the tendencies of the UTG player and the players behind you.<br><br>Against a proficient UTG player, 3-betting can be a strong move to leverage your positional advantage and put pressure on their wide opening range. However, cold calling is also a solid play as it keeps the pot manageable and allows you to play postflop in position with a hand that flops well. If there are weaker players in the blinds or on the Button, cold calling can be more profitable as it encourages them to enter the pot with dominated hands.",
+      ],
     ];
     const randomIndex = Math.floor(Math.random() * conversations.length);
     const [question, response] = conversations[randomIndex];
