@@ -59,7 +59,7 @@ export default function QuestionAnimation() {
       <div
         className={`${
           questionRendered ? "scale-100 opacity-100" : "scale-50 opacity-0"
-        } mb-4 ml-auto w-full max-w-sm rounded-md border border-white p-3 text-left text-lg transition`}
+        } mb-4 ml-auto w-full max-w-sm rounded-sm border border-white p-3 text-left text-lg transition`}
       >
         <p>{question}</p>
       </div>
@@ -67,7 +67,7 @@ export default function QuestionAnimation() {
         style={{ backgroundColor: backgroundColor() }}
         className={`${
           responseRendered ? "scale-100 opacity-100" : "scale-50 opacity-0"
-        } mb-4 mr-auto w-full max-w-sm rounded-md p-3 text-left text-lg  transition`}
+        } mb-4 mr-auto w-full max-w-sm rounded-sm p-3 text-left text-lg  transition`}
       >
         <Typewriter
           options={{

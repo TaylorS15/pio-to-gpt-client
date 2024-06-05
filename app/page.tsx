@@ -25,7 +25,7 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="my-auto h-auto w-full rounded-md text-xl lg:mx-auto lg:w-3/4">
+        <div className="my-auto h-auto w-full rounded-sm text-xl lg:mx-auto lg:w-3/4">
           <QuestionAnimation />
         </div>
 
@@ -39,7 +39,7 @@ export default function Home() {
             </Balancer>
           </h2>
           <SignUpButton signInFallbackRedirectUrl="/chat">
-            <button className="mt-8 h-12 w-36 rounded-md bg-white p-2 text-lg text-black transition hover:bg-gray-200">
+            <button className="mt-8 h-12 w-36 rounded-sm bg-white p-2 text-lg text-black transition hover:bg-gray-200">
               Sign Up
             </button>
           </SignUpButton>
@@ -101,7 +101,7 @@ export default function Home() {
           </p>
 
           <SignUpButton signInFallbackRedirectUrl="/chat">
-            <button className="mx-auto mt-10 flex h-20 w-full max-w-sm items-center justify-center gap-8 rounded-md border border-white bg-black text-2xl font-medium transition hover:bg-pio-green/80">
+            <button className="mx-auto mt-10 flex h-20 w-full max-w-sm items-center justify-center gap-8 rounded-sm border border-white bg-black text-2xl font-medium transition hover:bg-pio-green/80">
               <h2>Sign Up Now</h2>
               <CornerUpRight size={25} />
             </button>

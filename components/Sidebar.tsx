@@ -101,7 +101,7 @@ export default function Sidebar() {
 
         <div className="mx-auto mt-14 flex w-11/12 flex-grow select-none flex-col overflow-y-scroll lg:mt-4">
           <button
-            className="text-md mb-2 flex h-12 w-3/4 items-center justify-between rounded-md border border-black bg-black p-2  transition hover:border-white"
+            className="text-md mb-2 flex h-12 w-3/4 items-center justify-between rounded-sm border border-black bg-black p-2  transition hover:border-white"
             onClick={handleSelectNewChat}
           >
             <p>New Chat</p>
@@ -127,7 +127,7 @@ export default function Sidebar() {
             className="p-4"
             href={`https://buy.stripe.com/9AQ16a8HJ5IL8QodQU?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
           >
-            <button className="h-16 w-full rounded-md border border-white bg-black text-lg transition hover:bg-pio-green hover:text-black">
+            <button className="h-16 w-full rounded-sm border border-white bg-black text-lg transition hover:bg-pio-green hover:text-black">
               Upgrade
             </button>
           </Link>

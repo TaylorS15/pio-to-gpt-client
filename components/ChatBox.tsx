@@ -224,7 +224,7 @@ export default function ChatBox() {
       <div className="mx-auto w-full max-w-3xl">
         <div
           style={{ width: `${progressBar}%` }}
-          className="h-[.15rem] rounded-md bg-gray-300 transition-all duration-1000"
+          className="h-[.15rem] rounded-sm bg-gray-300 transition-all duration-1000"
         />
       </div>
       <Form {...form}>
@@ -267,7 +267,7 @@ export default function ChatBox() {
                 awaitingResponse
                   ? "bg-white/50 hover:bg-white/50"
                   : "bg-white hover:bg-white/90"
-              } mb-2 mt-auto h-10 w-16 select-none rounded-md font-medium text-black transition`}
+              } mb-2 mt-auto h-10 w-16 select-none rounded-sm font-medium text-black transition`}
               disabled={awaitingResponse}
             >
               Send
@@ -340,7 +340,7 @@ export default function ChatBox() {
                 )}
               />
               <button
-                className="w-20 rounded-md bg-white font-medium text-black transition hover:bg-gray-200"
+                className="w-20 rounded-sm bg-white font-medium text-black transition hover:bg-gray-200"
                 type="reset"
                 onClick={() => {
                   form.reset({

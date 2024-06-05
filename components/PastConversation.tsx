@@ -84,7 +84,7 @@ export default function PastConversation({
 
   return (
     <button
-      className="flex h-12 w-full items-center gap-4 rounded-md bg-black p-2 transition hover:bg-white/10"
+      className="flex h-12 w-full items-center gap-4 rounded-sm bg-black p-2 transition hover:bg-white/10"
       onClick={() => handleConversationClick()}
     >
       <MessageSquare size={20} />
