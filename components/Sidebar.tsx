@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Sidebar() {
   const {
@@ -26,24 +27,33 @@ export default function Sidebar() {
   const subscription = userPublicMetadata?.subscription
     ? userPublicMetadata?.subscription
     : "free";
+  const { data, isSuccess } = useQuery({
+    queryKey: ["pastConversations"],
+    queryFn: async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/conversation/request`,
+        {
+          headers: {
+            userid: user?.id || "",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
+      }
+
+      return response.json();
+    },
+    enabled: !!user,
+  });
 
   useEffect(() => {
-    if (user) {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/conversation/request`, {
-          headers: {
-            userid: user.id,
-          },
-        })
-        .then((data) => {
-          setPastConversations(data.data.pastConversations || null);
-          setIsLoaded(true);
-        })
-        .catch((error) => {
-          setIsLoaded(true);
-        });
+    if (isSuccess) {
+      setPastConversations(data.pastConversations || null);
+      setIsLoaded(true);
     }
-  }, [user]);
+  }, [isSuccess]);
 
   function handleSelectNewChat() {
     setNavState("CLOSED");

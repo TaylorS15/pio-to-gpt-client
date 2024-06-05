@@ -15,11 +15,9 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const { user } = useUser();
-  const router = useRouter();
 
   return (
     <div className="absolute right-4 top-4">

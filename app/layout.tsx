@@ -2,14 +2,14 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { Montserrat } from "next/font/google";
+import  ReactQueryProvider from "@/components/ReactQueryProvider";
 import { ClerkProvider } from "@clerk/nextjs";
-
-const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "GTOtoGPT",
   description: "Use LLM's and solver data to answer any poker question.",
 };
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -18,12 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`${montserrat.className} bg-black text-white`}>
-          {children}
-          <Analytics />
-        </body>
-      </html>
+      <ReactQueryProvider>
+        <html lang="en">
+          <body className={`${montserrat.className} bg-black text-white`}>
+            {children}
+            <Analytics />
+          </body>
+        </html>
+      </ReactQueryProvider>
     </ClerkProvider>
   );
 }

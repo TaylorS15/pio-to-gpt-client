@@ -12,7 +12,6 @@ export default function PastConversation({
 }) {
   const {
     setConversation,
-    setNavState,
     currentConversation,
     addConversation,
     setPastConversations,
