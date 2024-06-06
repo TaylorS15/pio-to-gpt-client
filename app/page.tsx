@@ -20,7 +20,7 @@ export default function Home() {
           <h2 className="mx-auto max-w-3xl bg-gradient-to-br from-white to-slate-400 bg-clip-text text-2xl font-semibold text-transparent md:text-3xl">
             <Balancer>
               Supercharge your poker learning by bringing solver solutions and
-              GPT-4o together.
+              GPT-4/o together.
             </Balancer>
           </h2>
         </div>
@@ -63,7 +63,7 @@ export default function Home() {
             <Minus size={25} className="my-auto" />
             <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
               Combines massive datasets of solver solutions and general poker
-              knowledge with GPT-4o.
+              knowledge with fine tuned models and GPT-4/o.
             </h3>
           </div>
 
@@ -71,7 +71,7 @@ export default function Home() {
             <Minus size={25} className="my-auto" />
             <h3 className="w-4/5 text-2xl font-medium md:text-3xl">
               More accurate reasoning and higher quality responses to poker
-              strategy and theory questions than base GPT-4o.
+              strategy and theory questions than base ChatGPT.
             </h3>
           </div>
 
