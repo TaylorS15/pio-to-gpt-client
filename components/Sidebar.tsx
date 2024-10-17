@@ -5,7 +5,7 @@ import { useStore } from "@/app/store";
 import type { UserPublicMetadata } from "@/app/types";
 import PastConversation from "@/components/PastConversation";
 import { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -21,6 +21,7 @@ export default function Sidebar() {
     setConversation,
     updateConversation,
   } = useStore();
+  const { getToken } = useAuth()
   const { user } = useUser();
   const [isLoaded, setIsLoaded] = useState(false);
   const userPublicMetadata = user?.publicMetadata as UserPublicMetadata;
@@ -34,7 +35,7 @@ export default function Sidebar() {
         `${process.env.NEXT_PUBLIC_API_URL}/conversation/request`,
         {
           headers: {
-            userid: user?.id || "",
+            Authorization: `Bearer ${await getToken()}`
           },
         },
       );
@@ -61,9 +62,9 @@ export default function Sidebar() {
     if (currentConversation) {
       const isInPastConversations = pastConversations
         ? pastConversations.findIndex(
-            (conversation) =>
-              conversation.created === currentConversation.created,
-          )
+          (conversation) =>
+            conversation.created === currentConversation.created,
+        )
         : -1;
 
       if (isInPastConversations !== -1) {
@@ -86,11 +87,10 @@ export default function Sidebar() {
       </button>
 
       <div
-        className={`${
-          navState === "OPEN"
+        className={`${navState === "OPEN"
             ? "translate-x-0 shadow-custom shadow-black/80"
             : "-translate-x-full"
-        } relative z-20 flex h-[100dvh] w-72 flex-col border-r border-white bg-black transition lg:translate-x-0 lg:shadow-none`}
+          } relative z-20 flex h-[100dvh] w-72 flex-col border-r border-white bg-black transition lg:translate-x-0 lg:shadow-none`}
       >
         <button
           className="absolute left-4 top-4 z-30 transition-all lg:hidden"
