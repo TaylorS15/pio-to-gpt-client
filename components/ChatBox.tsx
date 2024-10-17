@@ -60,6 +60,7 @@ export default function ChatBox() {
     },
   });
   const { user } = useUser();
+  const { getToken } = useAuth()
   const { toast } = useToast();
   const [awaitingResponse, setAwaitingResponse] = useState(false);
   const userPublicMetadata = user?.publicMetadata as UserPublicMetadata;
@@ -90,7 +91,7 @@ export default function ChatBox() {
     }
   }, []);
 
-  function submitQuestion(values: z.infer<typeof formSchema>) {
+  async function submitQuestion(values: z.infer<typeof formSchema>) {
     const date = Date.now();
 
     setAwaitingResponse(true);
@@ -111,7 +112,7 @@ export default function ChatBox() {
     const socket = io(process.env.NEXT_PUBLIC_API_URL || "", {
       autoConnect: false,
       extraHeaders: {
-        userId: user?.id ?? "",
+        Authorization: `Bearer ${await getToken()}`
       },
       reconnectionAttempts: 3,
     });
@@ -263,11 +264,10 @@ export default function ChatBox() {
             />
             <button
               type="submit"
-              className={`${
-                awaitingResponse
-                  ? "bg-white/50 hover:bg-white/50"
-                  : "bg-white hover:bg-white/90"
-              } mb-2 mt-auto h-10 w-16 select-none rounded-sm font-medium text-black transition`}
+              className={`${awaitingResponse
+                ? "bg-white/50 hover:bg-white/50"
+                : "bg-white hover:bg-white/90"
+                } mb-2 mt-auto h-10 w-16 select-none rounded-sm font-medium text-black transition`}
               disabled={awaitingResponse}
             >
               Send

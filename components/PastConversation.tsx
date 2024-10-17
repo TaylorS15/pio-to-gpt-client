@@ -1,6 +1,6 @@
 import { useStore } from "@/app/store";
 import { Conversation } from "@/app/types";
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { Check, MessageSquare, Trash2, X } from "lucide-react";
 import { useState } from "react";
@@ -18,19 +18,20 @@ export default function PastConversation({
     updateConversation,
     pastConversations,
   } = useStore();
+  const { getToken } = useAuth()
   const { user } = useUser();
   const isActive = currentConversation?.created === conversation.created;
   const [isDeleting, setIsDeleting] = useState(false);
   const [canDelete, setCanDelete] = useState(true);
 
-  function deleteConversation() {
+  async function deleteConversation() {
     setIsDeleting(false);
     setCanDelete(false);
     axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/conversation/delete`,
       headers: {
-        userid: user?.id,
+        Authorization: `Bearer ${await getToken()}`
       },
       data: {
         userId: user?.id,
@@ -42,10 +43,10 @@ export default function PastConversation({
         setPastConversations(
           pastConversations
             ? pastConversations?.filter(
-                (conversation) =>
-                  currentConversation &&
-                  conversation.created !== currentConversation.created,
-              )
+              (conversation) =>
+                currentConversation &&
+                conversation.created !== currentConversation.created,
+            )
             : [],
         );
       })
@@ -63,9 +64,9 @@ export default function PastConversation({
     if (currentConversation) {
       const isInPastConversations = pastConversations
         ? pastConversations.findIndex(
-            (conversation) =>
-              conversation.created === currentConversation.created,
-          )
+          (conversation) =>
+            conversation.created === currentConversation.created,
+        )
         : -1;
 
       if (isInPastConversations === -1) {
