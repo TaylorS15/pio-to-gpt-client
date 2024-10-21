@@ -35,7 +35,8 @@ export default function Sidebar() {
         `${process.env.NEXT_PUBLIC_API_URL}/conversation/request`,
         {
           headers: {
-            Authorization: `Bearer ${await getToken()}`
+            Authorization: `Bearer ${await getToken()}`,
+            userId: user?.id ?? ''
           },
         },
       );
@@ -44,14 +45,21 @@ export default function Sidebar() {
         throw new Error(`Failed to fetch data: ${response.statusText}`);
       }
 
-      return response.json();
+      const result = response.json()
+      console.log(result)
+
+      return result
     },
     enabled: !!user,
   });
 
   useEffect(() => {
     if (isSuccess) {
-      setPastConversations(data.pastConversations || null);
+      if (data.pastConversations) {
+        setPastConversations(data.pastConversations)
+      } else {
+        setPastConversations(null)
+      }
       setIsLoaded(true);
     }
   }, [isSuccess]);
@@ -88,8 +96,8 @@ export default function Sidebar() {
 
       <div
         className={`${navState === "OPEN"
-            ? "translate-x-0 shadow-custom shadow-black/80"
-            : "-translate-x-full"
+          ? "shadow-custom translate-x-0 shadow-black/80"
+          : "-translate-x-full"
           } relative z-20 flex h-[100dvh] w-72 flex-col border-r border-white bg-black transition lg:translate-x-0 lg:shadow-none`}
       >
         <button
@@ -127,7 +135,7 @@ export default function Sidebar() {
             className="p-4"
             href={`https://buy.stripe.com/9AQ16a8HJ5IL8QodQU?prefilled_email=${user?.primaryEmailAddress?.emailAddress}&client_reference_id=${user?.id}`}
           >
-            <button className="h-16 w-full rounded-sm border border-white bg-black text-lg transition hover:bg-pio-green hover:text-black">
+            <button className="hover:bg-pio-green h-16 w-full rounded-sm border border-white bg-black text-lg transition hover:text-black">
               Upgrade
             </button>
           </Link>
