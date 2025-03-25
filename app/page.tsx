@@ -6,7 +6,6 @@ import Header from "@/components/Header";
 import { ChevronDown, CornerUpRight, Minus } from "lucide-react";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
-import ToastWrapper from "@/components/ToastWrapper";
 
 export default function Home() {
   return (
